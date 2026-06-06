@@ -1,0 +1,2042 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MRE Mutumane Real Estate — Steueroptimiert investieren in Nürnberg, Hof & München</title>
+  <meta name="description" content="Entdecken Sie die steuerlichen Vorteile von Kapitalanlage-Immobilien: AfA, Werbungskosten, Hebel-Effekte — mit konkreten Zahlen und echten Renditebeispielen." />
+  <style>
+    /* ============================================================
+       RESET & BASE
+    ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      background: #0a0a0a;
+      color: #e8e8e8;
+      font-family: system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ============================================================
+       TYPOGRAPHY
+    ============================================================ */
+    h1, h2, h3, h4 {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+    }
+
+    h1 { font-size: clamp(2rem, 5vw, 3.5rem); }
+    h2 { font-size: clamp(1.5rem, 3.5vw, 2.4rem); }
+    h3 { font-size: clamp(1.2rem, 2.5vw, 1.7rem); }
+    h4 { font-size: clamp(1rem, 2vw, 1.25rem); }
+
+    p { font-size: clamp(0.92rem, 1.5vw, 1.05rem); color: #c8c8c8; }
+
+    /* ============================================================
+       COLORS & GRADIENTS
+    ============================================================ */
+    :root {
+      --gold: #c9a84c;
+      --gold-light: #e8d5a3;
+      --gold-dark: #9a7a30;
+      --bg: #0a0a0a;
+      --bg-card: #111111;
+      --bg-card-hover: #161616;
+      --bg-subtle: #0f0f0f;
+      --border: rgba(201, 168, 76, 0.2);
+      --border-strong: rgba(201, 168, 76, 0.45);
+      --text: #e8e8e8;
+      --text-muted: #888;
+      --text-dim: #c8c8c8;
+    }
+
+    .gold { color: var(--gold); }
+    .gold-light { color: var(--gold-light); }
+
+    .gold-gradient {
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 50%, var(--gold) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ============================================================
+       LAYOUT
+    ============================================================ */
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 1.25rem;
+    }
+
+    section {
+      padding: 5rem 0;
+      position: relative;
+    }
+
+    section + section {
+      border-top: 1px solid var(--border);
+    }
+
+    /* ============================================================
+       ANIMATIONS
+    ============================================================ */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .fade-in-delay-1 { transition-delay: 0.1s; }
+    .fade-in-delay-2 { transition-delay: 0.2s; }
+    .fade-in-delay-3 { transition-delay: 0.3s; }
+    .fade-in-delay-4 { transition-delay: 0.4s; }
+
+    /* ============================================================
+       DIVIDERS
+    ============================================================ */
+    .gold-divider {
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 2.5rem 0;
+    }
+
+    .section-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-family: system-ui, sans-serif;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+
+    /* ============================================================
+       NAV / TOP BAR
+    ============================================================ */
+    .topbar {
+      background: rgba(10,10,10,0.97);
+      border-bottom: 1px solid var(--border);
+      padding: 0.9rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(12px);
+    }
+
+    .topbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+
+    .logo-mark {
+      width: 34px;
+      height: 34px;
+      background: linear-gradient(135deg, var(--gold-dark), var(--gold), var(--gold-light));
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 0.85rem;
+      color: #0a0a0a;
+      font-family: Georgia, serif;
+      flex-shrink: 0;
+    }
+
+    .logo-text {
+      font-family: Georgia, serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--gold-light);
+      line-height: 1.1;
+    }
+
+    .logo-sub {
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      font-family: system-ui, sans-serif;
+      font-weight: 400;
+      letter-spacing: 0.05em;
+    }
+
+    .topbar-cta {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+      color: #0a0a0a;
+      font-weight: 700;
+      font-size: 0.78rem;
+      padding: 0.55rem 1.1rem;
+      border-radius: 3px;
+      text-decoration: none;
+      letter-spacing: 0.03em;
+      white-space: nowrap;
+      transition: opacity 0.2s;
+    }
+    .topbar-cta:hover { opacity: 0.88; }
+
+    /* ============================================================
+       HERO
+    ============================================================ */
+    .hero {
+      padding: 6rem 0 5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background:
+        radial-gradient(ellipse 80% 50% at 50% 0%, rgba(201,168,76,0.07) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 60% at 80% 50%, rgba(201,168,76,0.04) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(201,168,76,0.1);
+      border: 1px solid var(--border-strong);
+      border-radius: 100px;
+      padding: 0.35rem 1rem;
+      font-size: 0.75rem;
+      color: var(--gold-light);
+      letter-spacing: 0.05em;
+      font-weight: 600;
+      margin-bottom: 2rem;
+    }
+
+    .hero-badge::before {
+      content: '◆';
+      color: var(--gold);
+      font-size: 0.6rem;
+    }
+
+    .hero h1 {
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      color: var(--text-dim);
+      max-width: 640px;
+      margin-bottom: 3rem;
+      line-height: 1.6;
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1rem;
+      margin-top: 3rem;
+    }
+
+    .hero-stat {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1.25rem;
+      text-align: center;
+    }
+
+    .hero-stat-number {
+      font-family: Georgia, serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      display: block;
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+
+    .hero-stat-label {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    /* ============================================================
+       CARDS
+    ============================================================ */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 2rem;
+      transition: border-color 0.3s, background 0.3s;
+    }
+    .card:hover {
+      border-color: var(--border-strong);
+      background: var(--bg-card-hover);
+    }
+
+    .card-gold {
+      border-left: 3px solid var(--gold);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+    }
+
+    /* ============================================================
+       FORMULA / CALCULATION BOXES
+    ============================================================ */
+    .calc-box {
+      background: #0d0d0d;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1.5rem;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 0.9rem;
+      line-height: 2;
+    }
+
+    .calc-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 1rem;
+      padding: 0.1rem 0;
+    }
+
+    .calc-row.total {
+      border-top: 1px solid var(--border-strong);
+      margin-top: 0.5rem;
+      padding-top: 0.75rem;
+      font-weight: 700;
+      font-size: 1.05rem;
+    }
+
+    .calc-label { color: var(--text-muted); flex: 1; }
+    .calc-value { color: var(--gold-light); white-space: nowrap; }
+    .calc-value.highlight {
+      color: var(--gold);
+      font-size: 1.1em;
+    }
+
+    .result-number {
+      font-family: Georgia, serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+      display: block;
+    }
+
+    .result-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-top: 0.4rem;
+    }
+
+    /* ============================================================
+       SECTION HEADERS
+    ============================================================ */
+    .section-header {
+      margin-bottom: 3rem;
+    }
+
+    .section-header h2 { margin-bottom: 1rem; }
+    .section-header p { max-width: 620px; }
+
+    /* ============================================================
+       AfA SECTION
+    ============================================================ */
+    .afa-visual {
+      display: flex;
+      gap: 0;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      margin: 2rem 0;
+    }
+
+    .afa-bar {
+      padding: 1.5rem;
+      text-align: center;
+      font-weight: 700;
+    }
+
+    .afa-bar-land {
+      background: #1a1208;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .afa-bar-gebaeude {
+      background: #16200a;
+      border-left: 2px solid var(--gold);
+      flex: 2.2;
+      min-width: 0;
+    }
+
+    .afa-bar-title {
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .afa-bar-amount {
+      font-family: Georgia, serif;
+      font-size: 1.4rem;
+      color: var(--gold-light);
+    }
+
+    .afa-bar-pct {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 0.25rem;
+    }
+
+    /* ============================================================
+       LEVERAGE SECTION
+    ============================================================ */
+    .scenario-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    @media (max-width: 560px) {
+      .scenario-grid { grid-template-columns: 1fr; }
+    }
+
+    .scenario {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.75rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .scenario-b {
+      border-color: var(--gold);
+      background: #0f0d05;
+    }
+
+    .scenario-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+
+    .scenario-b .scenario-label { color: var(--gold); }
+
+    .scenario-highlight {
+      position: absolute;
+      top: 0; right: 0;
+      background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+      color: #0a0a0a;
+      font-size: 0.68rem;
+      font-weight: 800;
+      padding: 0.35rem 0.8rem;
+      border-radius: 0 8px 0 6px;
+      letter-spacing: 0.06em;
+    }
+
+    /* ============================================================
+       RENDITE EXAMPLES
+    ============================================================ */
+    .example-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      transition: border-color 0.3s;
+    }
+
+    .example-card:hover { border-color: var(--border-strong); }
+
+    .example-header {
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .example-city {
+      font-family: Georgia, serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+    }
+
+    .example-badge {
+      font-size: 0.68rem;
+      padding: 0.3rem 0.7rem;
+      border-radius: 100px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .badge-einsteiger {
+      background: rgba(100, 180, 100, 0.12);
+      color: #82c882;
+      border: 1px solid rgba(100,180,100,0.3);
+    }
+
+    .badge-mittel {
+      background: rgba(201,168,76,0.12);
+      color: var(--gold);
+      border: 1px solid var(--border);
+    }
+
+    .badge-premium {
+      background: rgba(180,120,255,0.1);
+      color: #c8a0ff;
+      border: 1px solid rgba(180,120,255,0.25);
+    }
+
+    .example-body {
+      padding: 1.5rem;
+    }
+
+    .example-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem 1.5rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .example-item-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+    }
+
+    .example-item-value {
+      font-weight: 600;
+      color: var(--text);
+      margin-top: 0.1rem;
+    }
+
+    .example-rendite {
+      background: #0d0d0d;
+      border: 1px solid var(--border-strong);
+      border-radius: 6px;
+      padding: 1rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .example-rendite-label {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+    }
+
+    .example-rendite-value {
+      font-family: Georgia, serif;
+      font-size: 1.9rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ============================================================
+       CITY PROFILES
+    ============================================================ */
+    .city-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .city-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold-dark), var(--gold), var(--gold-light));
+    }
+
+    .city-icon {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, rgba(201,168,76,0.15), rgba(201,168,76,0.05));
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+    }
+
+    .city-stats {
+      margin-top: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .city-stat-row {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.88rem;
+    }
+
+    .city-stat-row::before {
+      content: '▸';
+      color: var(--gold);
+      font-size: 0.7rem;
+      flex-shrink: 0;
+    }
+
+    .city-stat-row strong {
+      color: var(--gold-light);
+    }
+
+    /* ============================================================
+       RECHNER (CALCULATOR)
+    ============================================================ */
+    .rechner-section {
+      background: linear-gradient(180deg, rgba(201,168,76,0.04) 0%, transparent 100%);
+    }
+
+    .rechner-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-strong);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .rechner-inputs {
+      padding: 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .rechner-outputs {
+      padding: 2rem;
+      background: #0d0d0d;
+    }
+
+    .input-group {
+      margin-bottom: 2rem;
+    }
+
+    .input-group:last-child { margin-bottom: 0; }
+
+    .input-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 0.6rem;
+    }
+
+    .input-label-text {
+      font-size: 0.88rem;
+      color: var(--text-dim);
+      font-weight: 500;
+    }
+
+    .input-label-value {
+      font-family: Georgia, serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--gold);
+    }
+
+    input[type="range"] {
+      width: 100%;
+      -webkit-appearance: none;
+      appearance: none;
+      height: 4px;
+      background: linear-gradient(90deg, var(--gold), var(--border));
+      border-radius: 2px;
+      outline: none;
+      margin-bottom: 0.75rem;
+      cursor: pointer;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(201,168,76,0.4);
+      transition: box-shadow 0.2s;
+    }
+
+    input[type="range"]::-webkit-slider-thumb:hover {
+      box-shadow: 0 2px 14px rgba(201,168,76,0.6);
+    }
+
+    input[type="range"]::-moz-range-thumb {
+      width: 20px;
+      height: 20px;
+      background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+      border-radius: 50%;
+      cursor: pointer;
+      border: none;
+      box-shadow: 0 2px 8px rgba(201,168,76,0.4);
+    }
+
+    .range-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.7rem;
+      color: var(--text-muted);
+    }
+
+    .rechner-number-input {
+      width: 100%;
+      background: #0d0d0d;
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      color: var(--text);
+      padding: 0.6rem 0.9rem;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.2s;
+      margin-top: 0.5rem;
+    }
+
+    .rechner-number-input:focus {
+      border-color: var(--gold);
+    }
+
+    .output-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .output-item {
+      background: #111;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1.25rem;
+      text-align: center;
+      transition: border-color 0.2s;
+    }
+
+    .output-item.main {
+      border-color: var(--gold);
+      background: rgba(201,168,76,0.04);
+    }
+
+    .output-value {
+      font-family: Georgia, serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      display: block;
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+
+    .output-item.main .output-value {
+      font-size: 2.2rem;
+    }
+
+    .output-label {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .cashflow-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.78rem;
+      padding: 0.25rem 0.7rem;
+      border-radius: 100px;
+      margin-top: 0.5rem;
+      font-weight: 600;
+    }
+
+    .cashflow-pos {
+      background: rgba(100,180,100,0.12);
+      color: #82c882;
+      border: 1px solid rgba(100,180,100,0.3);
+    }
+
+    .cashflow-neg {
+      background: rgba(220,80,80,0.1);
+      color: #e88080;
+      border: 1px solid rgba(220,80,80,0.25);
+    }
+
+    .rechner-note {
+      padding: 1rem 2rem;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border);
+      background: #0a0a0a;
+    }
+
+    /* ============================================================
+       EMAIL CAPTURE
+    ============================================================ */
+    .capture-section {
+      background: linear-gradient(180deg, rgba(201,168,76,0.06) 0%, rgba(201,168,76,0.02) 100%);
+    }
+
+    .capture-inner {
+      max-width: 640px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .capture-icon {
+      width: 64px;
+      height: 64px;
+      background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 8px 32px rgba(201,168,76,0.3);
+    }
+
+    .capture-form {
+      background: var(--bg-card);
+      border: 1px solid var(--border-strong);
+      border-radius: 10px;
+      padding: 2.5rem;
+      margin-top: 2.5rem;
+      text-align: left;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    @media (max-width: 560px) {
+      .form-row { grid-template-columns: 1fr; }
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .form-group.full { grid-column: 1 / -1; }
+
+    .form-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-weight: 500;
+      letter-spacing: 0.04em;
+    }
+
+    .form-input, .form-select {
+      background: #0d0d0d;
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      color: var(--text);
+      padding: 0.75rem 1rem;
+      font-size: 0.95rem;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      width: 100%;
+    }
+
+    .form-input:focus, .form-select:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(201,168,76,0.1);
+    }
+
+    .form-select {
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23888' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      padding-right: 2.5rem;
+      cursor: pointer;
+    }
+
+    .form-select option {
+      background: #111;
+      color: var(--text);
+    }
+
+    .btn-submit {
+      width: 100%;
+      background: linear-gradient(135deg, var(--gold-dark), var(--gold), var(--gold-light));
+      color: #0a0a0a;
+      font-weight: 800;
+      font-size: 1rem;
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      letter-spacing: 0.03em;
+      font-family: inherit;
+      margin-top: 0.5rem;
+      transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 20px rgba(201,168,76,0.3);
+    }
+
+    .btn-submit:hover {
+      opacity: 0.92;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 28px rgba(201,168,76,0.45);
+    }
+
+    .btn-submit:active {
+      transform: translateY(0);
+    }
+
+    .privacy-note {
+      margin-top: 1rem;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-align: center;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+
+    .privacy-note::before {
+      content: '🔒';
+      font-size: 0.85rem;
+      flex-shrink: 0;
+      margin-top: -0.05rem;
+    }
+
+    /* Thank you state */
+    .thankyou-state {
+      display: none;
+      text-align: center;
+      padding: 3rem 2rem;
+    }
+
+    .thankyou-state.active {
+      display: block;
+    }
+
+    .capture-form.submitted .form-content {
+      display: none;
+    }
+
+    .capture-form.submitted .thankyou-state {
+      display: block;
+    }
+
+    .thankyou-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .thankyou-title {
+      font-family: Georgia, serif;
+      font-size: 1.5rem;
+      color: var(--gold-light);
+      margin-bottom: 0.75rem;
+    }
+
+    .trust-badges {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+    }
+
+    .trust-badge {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .trust-badge::before {
+      content: '✓';
+      color: var(--gold);
+      font-weight: 800;
+      font-size: 0.9rem;
+    }
+
+    /* ============================================================
+       WERBUNGSKOSTEN LIST
+    ============================================================ */
+    .wk-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 0.75rem;
+      margin: 1.5rem 0;
+    }
+
+    .wk-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0.75rem 1rem;
+      font-size: 0.88rem;
+      color: var(--text-dim);
+    }
+
+    .wk-icon {
+      width: 28px;
+      height: 28px;
+      background: rgba(201,168,76,0.1);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+
+    /* ============================================================
+       INFOBOX / HIGHLIGHT
+    ============================================================ */
+    .infobox {
+      background: rgba(201,168,76,0.06);
+      border: 1px solid var(--border-strong);
+      border-left: 3px solid var(--gold);
+      border-radius: 0 6px 6px 0;
+      padding: 1.25rem 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .infobox p {
+      margin: 0;
+      font-size: 0.92rem;
+    }
+
+    .infobox strong { color: var(--gold-light); }
+
+    /* ============================================================
+       FOOTER
+    ============================================================ */
+    footer {
+      background: #050505;
+      border-top: 1px solid var(--border);
+      padding: 3rem 0 2rem;
+    }
+
+    .footer-inner {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 2rem;
+      align-items: start;
+    }
+
+    @media (max-width: 600px) {
+      .footer-inner { grid-template-columns: 1fr; }
+    }
+
+    .footer-brand {
+      font-family: Georgia, serif;
+      font-size: 1.1rem;
+      color: var(--gold-light);
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-tagline {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    .footer-disclaimer {
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.75rem;
+      color: #555;
+      line-height: 1.6;
+    }
+
+    /* ============================================================
+       RESPONSIVE UTILITIES
+    ============================================================ */
+    @media (max-width: 768px) {
+      section { padding: 3.5rem 0; }
+      .hero { padding: 4rem 0 3.5rem; }
+      .card { padding: 1.5rem; }
+      .capture-form { padding: 1.75rem; }
+      .rechner-inputs, .rechner-outputs { padding: 1.5rem; }
+    }
+
+    @media (max-width: 480px) {
+      .afa-visual { flex-direction: column; }
+      .afa-bar { border-left: none; border-top: 2px solid var(--gold); }
+      .afa-bar-land { border-top: none; }
+    }
+
+    /* ============================================================
+       SCROLLBAR
+    ============================================================ */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #0a0a0a; }
+    ::-webkit-scrollbar-thumb { background: var(--gold-dark); border-radius: 3px; }
+
+    /* ============================================================
+       NUMBER HIGHLIGHT
+    ============================================================ */
+    .big-number {
+      display: flex;
+      align-items: baseline;
+      gap: 0.3rem;
+      flex-wrap: wrap;
+    }
+    .big-number-main {
+      font-family: Georgia, serif;
+      font-size: clamp(2.2rem, 5vw, 3.2rem);
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+    }
+    .big-number-unit {
+      font-size: 1.1rem;
+      color: var(--gold);
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ============================================================
+     TOP BAR
+============================================================ -->
+<header class="topbar">
+  <div class="container">
+    <div class="topbar-inner">
+      <div class="logo">
+        <div class="logo-mark">MRE</div>
+        <div>
+          <div class="logo-text">Mutumane Real Estate</div>
+          <div class="logo-sub">Off-Market Investment Properties</div>
+        </div>
+      </div>
+      <a href="#zugang" class="topbar-cta">Exklusiver Investor-Zugang</a>
+    </div>
+  </div>
+</header>
+
+<!-- ============================================================
+     HERO
+============================================================ -->
+<section class="hero">
+  <div class="container">
+    <div class="fade-in">
+      <div class="hero-badge">Exklusive Off-Market Analyse — 2025</div>
+    </div>
+    <div class="fade-in fade-in-delay-1">
+      <h1>Der stille <span class="gold-gradient">Vermögenshebel:</span><br>Kapitalanlage in Nürnberg, Hof &amp; München</h1>
+    </div>
+    <div class="fade-in fade-in-delay-2">
+      <p class="hero-subtitle">
+        Während andere warten, kaufen informierte Investoren. Wir bieten exklusiven Zugang zu 115 Off-Market-Wohnungen in drei der attraktivsten Investitionsstandorte des DACH-Raums — mit konkreten Zahlen, echten Renditen und vollständiger Steueroptimierung.
+      </p>
+    </div>
+    <div class="fade-in fade-in-delay-3">
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <span class="hero-stat-number">115</span>
+          <span class="hero-stat-label">Off-Market Einheiten</span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-number">3</span>
+          <span class="hero-stat-label">Investitionsstandorte</span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-number">6,19%</span>
+          <span class="hero-stat-label">Max. Bruttorendite</span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-number">€88.200</span>
+          <span class="hero-stat-label">Steuerersparnis (50J.)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     AFA SECTION
+============================================================ -->
+<section id="afa">
+  <div class="container">
+    <div class="section-header fade-in">
+      <div class="section-label">Steuerlicher Vorteil Nr. 1</div>
+      <h2>AfA-Abschreibung: Der legale Steuervorteil, den die meisten unterschätzen</h2>
+      <p>Die Absetzung für Abnutzung (AfA) ist einer der mächtigsten — und am häufigsten übersehenen — Steuervorteile für Immobilieninvestoren. Das Finanzamt erkennt den Wertverlust Ihres Gebäudes als Ausgabe an, obwohl Ihr Objekt in der Realität an Wert gewinnt.</p>
+    </div>
+
+    <div class="infobox fade-in">
+      <p><strong>Was ist AfA?</strong> Das Einkommensteuergesetz (§ 7 EStG) erlaubt es Vermietern, den Gebäudewert über 50 Jahre linear abzuschreiben — also jährlich <strong>2 % des Gebäudewertes</strong> steuerlich als Werbungskosten geltend zu machen. Das Grundstück ist nicht abschreibbar, da es sich nicht verbraucht.</p>
+    </div>
+
+    <div class="fade-in">
+      <h3 style="margin-bottom:1.25rem;">Konkretes Rechenbeispiel</h3>
+      <div class="afa-visual">
+        <div class="afa-bar afa-bar-land">
+          <div class="afa-bar-title">Grundstücksanteil</div>
+          <div class="afa-bar-amount">€70.000</div>
+          <div class="afa-bar-pct">25% — nicht abschreibbar</div>
+        </div>
+        <div class="afa-bar afa-bar-gebaeude">
+          <div class="afa-bar-title">Gebäudewert</div>
+          <div class="afa-bar-amount" style="color:var(--gold);">€210.000</div>
+          <div class="afa-bar-pct" style="color:var(--gold-light);">75% — abschreibbar mit 2% p.a.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-2" style="margin-top:1.5rem;">
+      <div class="card card-gold fade-in">
+        <div class="calc-box">
+          <div class="calc-row">
+            <span class="calc-label">Kaufpreis gesamt</span>
+            <span class="calc-value">€280.000</span>
+          </div>
+          <div class="calc-row">
+            <span class="calc-label">./. Grundstücksanteil (25%)</span>
+            <span class="calc-value">€70.000</span>
+          </div>
+          <div class="calc-row">
+            <span class="calc-label">= Gebäudewert</span>
+            <span class="calc-value">€210.000</span>
+          </div>
+          <div class="calc-row">
+            <span class="calc-label">AfA-Satz (§7 EStG)</span>
+            <span class="calc-value">2,0%</span>
+          </div>
+          <div class="calc-row total">
+            <span class="calc-label">AfA pro Jahr</span>
+            <span class="calc-value highlight">€4.200</span>
+          </div>
+          <div class="calc-row">
+            <span class="calc-label">AfA pro Monat</span>
+            <span class="calc-value highlight">€350</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card fade-in fade-in-delay-1">
+        <div class="section-label">Steuerliche Wirkung</div>
+        <div style="display:grid;gap:1.25rem;">
+          <div>
+            <span class="result-number">€1.764</span>
+            <div class="result-label">Jährliche Steuerersparnis (42% Steuersatz)</div>
+          </div>
+          <div class="gold-divider"></div>
+          <div>
+            <span class="result-number">€88.200</span>
+            <div class="result-label">Gesamtsteuerersparnis über 50 Jahre</div>
+          </div>
+          <div class="gold-divider"></div>
+          <p style="font-size:0.83rem;color:var(--text-muted);margin:0;">
+            Berechnet: €4.200 × 42% = €1.764/Jahr × 50 Jahre = €88.200 — rein durch gesetzliche Abschreibung, ohne zusätzlichen Aufwand.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="infobox fade-in" style="margin-top:2rem;">
+      <p><strong>Praxistipp:</strong> Der Grundstücksanteil wird in der Regel durch ein Gutachten oder pauschal festgelegt. In Städten wie München liegt er häufig bei 30–40 %, in Hof eher bei 15–20 %. Je höher der Gebäudewert-Anteil, desto höher Ihre AfA. <strong>Lassen Sie Ihren Steuerberater den optimalen Aufteilungsvertrag prüfen.</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     WERBUNGSKOSTEN SECTION
+============================================================ -->
+<section id="werbungskosten">
+  <div class="container">
+    <div class="section-header fade-in">
+      <div class="section-label">Steuerlicher Vorteil Nr. 2</div>
+      <h2>Werbungskosten: Ihr persönlicher Steuerhebel</h2>
+      <p>Neben der AfA können Sie eine Vielzahl weiterer Kosten steuerlich absetzen — und damit Ihr zu versteuerndes Einkommen erheblich reduzieren. Das Finanzamt beteiligt sich so effektiv an Ihren Investitionskosten.</p>
+    </div>
+
+    <div class="wk-list fade-in">
+      <div class="wk-item"><div class="wk-icon">%</div>Kreditzinsen (Finanzierungskosten)</div>
+      <div class="wk-item"><div class="wk-icon">🏢</div>Hausverwaltungsgebühren</div>
+      <div class="wk-item"><div class="wk-icon">🛡️</div>Gebäude- und Haftpflichtversicherung</div>
+      <div class="wk-item"><div class="wk-icon">🔧</div>Instandhaltung &amp; Reparaturen</div>
+      <div class="wk-item"><div class="wk-icon">📋</div>Steuerberatungskosten</div>
+      <div class="wk-item"><div class="wk-icon">🚗</div>Fahrtkosten zum Objekt</div>
+      <div class="wk-item"><div class="wk-icon">📞</div>Telekommunikation (anteilig)</div>
+      <div class="wk-item"><div class="wk-icon">📝</div>Notar &amp; Grundbuchkosten</div>
+    </div>
+
+    <div class="grid-2" style="margin-top:2rem;">
+      <div class="card card-gold fade-in">
+        <div class="section-label">Beispielrechnung — Gutverdiener</div>
+        <div class="calc-box">
+          <div class="calc-row">
+            <span class="calc-label">Jahreseinkommen (brutto)</span>
+            <span class="calc-value">€120.000</span>
+          </div>
+          <div class="calc-row" style="margin-top:0.75rem;">
+            <span class="calc-label">Kreditzinsen (3,5% auf €220k)</span>
+            <span class="calc-value">€7.700</span>
+          </div>
+          <div class="calc-row">
+            <span class="calc-label">AfA Gebäude</span>
+            <span class="calc-value">€4.200</span>
+          </div>
+          <div class="calc-row">
+            <span class="calc-label">Hausverwaltung</span>
+            <span class="calc-value">€1.800</span>
+          </div>
+          <div class="calc-row">
+            <span class="calc-label">Versicherungen</span>
+            <span class="calc-value">€600</span>
+          </div>
+          <div class="calc-row">
+            <span class="calc-label">Instandhaltung &amp; Sonstiges</span>
+            <span class="calc-value">€3.700</span>
+          </div>
+          <div class="calc-row total">
+            <span class="calc-label">Werbungskosten gesamt</span>
+            <span class="calc-value highlight">€18.000</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card fade-in fade-in-delay-1">
+        <div class="section-label">Steuerliche Wirkung</div>
+        <div style="display:grid;gap:1.25rem;">
+          <div class="calc-box">
+            <div class="calc-row">
+              <span class="calc-label">Einkommen vor Werbungskosten</span>
+              <span class="calc-value">€120.000</span>
+            </div>
+            <div class="calc-row">
+              <span class="calc-label">./. Werbungskosten Immobilie</span>
+              <span class="calc-value">€18.000</span>
+            </div>
+            <div class="calc-row total">
+              <span class="calc-label">Zu versteuerndes Einkommen</span>
+              <span class="calc-value highlight">€102.000</span>
+            </div>
+          </div>
+          <div>
+            <span class="result-number">€7.560</span>
+            <div class="result-label">Jährliche Steuerersparnis (42% × €18.000)</div>
+          </div>
+          <p style="font-size:0.83rem;color:var(--text-muted);margin:0;">
+            Das entspricht monatlich <strong style="color:var(--gold-light);">€630 weniger Steuern</strong> — ein direkter Beitrag zu Ihrem Cashflow.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FINANZIERUNGSHEBEL
+============================================================ -->
+<section id="hebel">
+  <div class="container">
+    <div class="section-header fade-in">
+      <div class="section-label">Steuerlicher Vorteil Nr. 3</div>
+      <h2>Der Finanzierungshebel: Eigenkapital multiplizieren</h2>
+      <p>Immobilien sind eine der wenigen Anlageklassen, bei der Banken Ihnen helfen, auf fremdes Kapital eine eigene Rendite zu erzielen. Der Leverage-Effekt kann Ihre Eigenkapitalrendite drastisch erhöhen.</p>
+    </div>
+
+    <div class="scenario-grid fade-in">
+      <div class="scenario">
+        <div class="scenario-label">Szenario A — Ohne Hebel</div>
+        <h4 style="margin-bottom:1.25rem;color:var(--text-dim);">Direktanlage</h4>
+        <div class="calc-box" style="font-size:0.82rem;">
+          <div class="calc-row">
+            <span class="calc-label">Eingesetztes Eigenkapital</span>
+            <span class="calc-value">€100.000</span>
+          </div>
+          <div class="calc-row">
+            <span class="calc-label">Direkte Anlage (Tagesgeld o.ä.)</span>
+            <span class="calc-value">5,0% p.a.</span>
+          </div>
+          <div class="calc-row total">
+            <span class="calc-label">Jährlicher Ertrag</span>
+            <span class="calc-value">€5.000</span>
+          </div>
+        </div>
+        <div style="margin-top:1.5rem;text-align:center;">
+          <span class="result-number" style="font-size:2rem;">5%</span>
+          <div class="result-label">Eigenkapitalrendite</div>
+        </div>
+      </div>
+
+      <div class="scenario scenario-b">
+        <div class="scenario-highlight">EMPFOHLEN</div>
+        <div class="scenario-label">Szenario B — Mit Hebel</div>
+        <h4 style="margin-bottom:1.25rem;color:var(--gold-light);">Immobilie mit Finanzierung</h4>
+        <div class="calc-box" style="font-size:0.82rem;">
+          <div class="calc-row">
+            <span class="calc-label">Eigenkapital (25%)</span>
+            <span class="calc-value">€100.000</span>
+          </div>
+          <div class="calc-row">
+            <span class="calc-label">Bankdarlehen (75%)</span>
+            <span class="calc-value">€300.000</span>
+          </div>
+          <div class="calc-row">
+            <span class="calc-label">Gesamtobjektwert</span>
+            <span class="calc-value">€400.000</span>
+          </div>
+          <div class="calc-row" style="margin-top:0.5rem;">
+            <span class="calc-label">Jahresmiete (6% Rendite)</span>
+            <span class="calc-value">€24.000</span>
+          </div>
+          <div class="calc-row">
+            <span class="calc-label">./. Zinsen (4% p.a.)</span>
+            <span class="calc-value">€12.000</span>
+          </div>
+          <div class="calc-row total">
+            <span class="calc-label">Cashflow vor Steuern</span>
+            <span class="calc-value highlight">€12.000</span>
+          </div>
+        </div>
+        <div style="margin-top:1.5rem;text-align:center;">
+          <span class="result-number" style="font-size:2rem;">12%</span>
+          <div class="result-label">Eigenkapitalrendite — 2,4× höher</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="infobox fade-in" style="margin-top:2rem;">
+      <p><strong>Der doppelte Hebel:</strong> Sie erzielen nicht nur eine höhere Eigenkapitalrendite durch den Leverage-Effekt — die Kreditzinsen von €12.000 sind gleichzeitig als Werbungskosten vollständig steuerlich absetzbar. <strong>Das Finanzamt subventioniert Ihre Finanzierungskosten.</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     RENDITE BEISPIELE
+============================================================ -->
+<section id="beispiele">
+  <div class="container">
+    <div class="section-header fade-in">
+      <div class="section-label">Reale Renditebeispiele</div>
+      <h2>Drei Investitionsszenarien — echte Zahlen</h2>
+      <p>Die folgenden Beispiele basieren auf aktuellen Marktdaten und repräsentativen Objekten aus unserem Portfolio. Alle Angaben sind Bruttorenditen vor Steuervorteilen — mit AfA und Werbungskosten verbessert sich die Nettorendite erheblich.</p>
+    </div>
+
+    <div class="grid-3">
+      <!-- HOF -->
+      <div class="example-card fade-in">
+        <div class="example-header">
+          <div>
+            <div style="font-size:0.7rem;color:var(--text-muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.25rem;">Bayern</div>
+            <div class="example-city">Hof</div>
+          </div>
+          <div class="example-badge badge-einsteiger">Einsteiger</div>
+        </div>
+        <div class="example-body">
+          <div class="example-grid">
+            <div>
+              <div class="example-item-label">Kaufpreis</div>
+              <div class="example-item-value">€95.000</div>
+            </div>
+            <div>
+              <div class="example-item-label">Wohnfläche</div>
+              <div class="example-item-value">52 m²</div>
+            </div>
+            <div>
+              <div class="example-item-label">Kaltmiete / Monat</div>
+              <div class="example-item-value">€490</div>
+            </div>
+            <div>
+              <div class="example-item-label">Jahresmiete</div>
+              <div class="example-item-value">€5.880</div>
+            </div>
+            <div>
+              <div class="example-item-label">Nebenkosten (5%)</div>
+              <div class="example-item-value">€4.750</div>
+            </div>
+            <div>
+              <div class="example-item-label">Gesamtinvestition</div>
+              <div class="example-item-value" style="color:var(--gold-light);">€99.750</div>
+            </div>
+          </div>
+          <div class="example-rendite">
+            <div>
+              <div class="example-rendite-label">Bruttorendite</div>
+              <div style="font-size:0.75rem;color:var(--text-muted);margin-top:0.15rem;">Vor Steuervorteilen</div>
+            </div>
+            <div class="example-rendite-value">6,19%</div>
+          </div>
+          <div style="margin-top:1rem;padding:0.85rem;background:#0d0d0d;border-radius:5px;border:1px solid var(--border);">
+            <div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:0.5rem;text-transform:uppercase;letter-spacing:0.06em;">Nebenkosten-Aufschlüsselung</div>
+            <div style="font-size:0.8rem;color:var(--text-dim);line-height:1.9;">
+              Grunderwerbsteuer 3,5%: €3.325<br>
+              Notarkosten 1,5%: €1.425<br>
+              Maklergebühr: €0 (off-market)
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- NÜRNBERG -->
+      <div class="example-card fade-in fade-in-delay-1">
+        <div class="example-header">
+          <div>
+            <div style="font-size:0.7rem;color:var(--text-muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.25rem;">Bayern</div>
+            <div class="example-city">Nürnberg</div>
+          </div>
+          <div class="example-badge badge-mittel">Mittelklasse</div>
+        </div>
+        <div class="example-body">
+          <div class="example-grid">
+            <div>
+              <div class="example-item-label">Kaufpreis</div>
+              <div class="example-item-value">€195.000</div>
+            </div>
+            <div>
+              <div class="example-item-label">Wohnfläche</div>
+              <div class="example-item-value">58 m²</div>
+            </div>
+            <div>
+              <div class="example-item-label">Kaltmiete / Monat</div>
+              <div class="example-item-value">€850</div>
+            </div>
+            <div>
+              <div class="example-item-label">Jahresmiete</div>
+              <div class="example-item-value">€10.200</div>
+            </div>
+            <div>
+              <div class="example-item-label">Nebenkosten (5%)</div>
+              <div class="example-item-value">€9.750</div>
+            </div>
+            <div>
+              <div class="example-item-label">Gesamtinvestition</div>
+              <div class="example-item-value" style="color:var(--gold-light);">€204.750</div>
+            </div>
+          </div>
+          <div class="example-rendite">
+            <div>
+              <div class="example-rendite-label">Bruttorendite</div>
+              <div style="font-size:0.75rem;color:var(--text-muted);margin-top:0.15rem;">Vor Steuervorteilen</div>
+            </div>
+            <div class="example-rendite-value">5,23%</div>
+          </div>
+          <div style="margin-top:1rem;padding:0.85rem;background:#0d0d0d;border-radius:5px;border:1px solid var(--border);">
+            <div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:0.5rem;text-transform:uppercase;letter-spacing:0.06em;">Nebenkosten-Aufschlüsselung</div>
+            <div style="font-size:0.8rem;color:var(--text-dim);line-height:1.9;">
+              Grunderwerbsteuer 3,5%: €6.825<br>
+              Notarkosten 1,5%: €2.925<br>
+              Maklergebühr: €0 (off-market)
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MÜNCHEN -->
+      <div class="example-card fade-in fade-in-delay-2">
+        <div class="example-header">
+          <div>
+            <div style="font-size:0.7rem;color:var(--text-muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.25rem;">Bayern</div>
+            <div class="example-city">München</div>
+          </div>
+          <div class="example-badge badge-premium">Premium</div>
+        </div>
+        <div class="example-body">
+          <div class="example-grid">
+            <div>
+              <div class="example-item-label">Kaufpreis</div>
+              <div class="example-item-value">€480.000</div>
+            </div>
+            <div>
+              <div class="example-item-label">Wohnfläche</div>
+              <div class="example-item-value">65 m²</div>
+            </div>
+            <div>
+              <div class="example-item-label">Kaltmiete / Monat</div>
+              <div class="example-item-value">€2.400</div>
+            </div>
+            <div>
+              <div class="example-item-label">Jahresmiete</div>
+              <div class="example-item-value">€28.800</div>
+            </div>
+            <div>
+              <div class="example-item-label">Nebenkosten (5%)</div>
+              <div class="example-item-value">€24.000</div>
+            </div>
+            <div>
+              <div class="example-item-label">Gesamtinvestition</div>
+              <div class="example-item-value" style="color:var(--gold-light);">€504.000</div>
+            </div>
+          </div>
+          <div class="example-rendite">
+            <div>
+              <div class="example-rendite-label">Bruttorendite</div>
+              <div style="font-size:0.75rem;color:var(--text-muted);margin-top:0.15rem;">Vor Steuervorteilen</div>
+            </div>
+            <div class="example-rendite-value">6,00%</div>
+          </div>
+          <div style="margin-top:1rem;padding:0.85rem;background:#0d0d0d;border-radius:5px;border:1px solid var(--border);">
+            <div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:0.5rem;text-transform:uppercase;letter-spacing:0.06em;">Nebenkosten-Aufschlüsselung</div>
+            <div style="font-size:0.8rem;color:var(--text-dim);line-height:1.9;">
+              Grunderwerbsteuer 3,5%: €16.800<br>
+              Notarkosten 1,5%: €7.200<br>
+              Maklergebühr: €0 (off-market)
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="infobox fade-in" style="margin-top:2rem;">
+      <p><strong>Off-Market-Vorteil:</strong> Da unsere 115 Einheiten direkt — ohne Makler — angeboten werden, entfällt die marktübliche Maklerprovision von 3,57 %. Bei einem €195.000-Objekt bedeutet das eine Sofortersparnis von rund <strong>€6.961</strong>, die direkt Ihre Rendite verbessert.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     STÄDTE-ANALYSE
+============================================================ -->
+<section id="staedte">
+  <div class="container">
+    <div class="section-header fade-in">
+      <div class="section-label">Marktanalyse</div>
+      <h2>Warum diese drei Städte — und warum jetzt?</h2>
+      <p>Nicht jeder Immobilienmarkt ist gleich. Diese drei Standorte wurden sorgfältig aufgrund ihrer fundamentalen Stärke, ihrer demografischen Dynamik und ihrer aktuellen Bewertung ausgewählt.</p>
+    </div>
+
+    <div class="grid-3">
+      <!-- NÜRNBERG -->
+      <div class="city-card fade-in">
+        <div class="city-icon">🏙️</div>
+        <h3 style="margin-bottom:0.5rem;">Nürnberg</h3>
+        <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:0;">Bayern zweitgrößte Stadt — wirtschaftsstark, günstig bewertet</p>
+        <div class="city-stats">
+          <div class="city-stat-row"><strong>+1,2 %/Jahr</strong> Bevölkerungswachstum</div>
+          <div class="city-stat-row">Leerstandsquote <strong>1,8 %</strong> (historisch niedrig)</div>
+          <div class="city-stat-row">Mieten <strong>+28 %</strong> in 5 Jahren</div>
+          <div class="city-stat-row">Arbeitgeber: <strong>BMW, MAN, Siemens</strong></div>
+          <div class="city-stat-row"><strong>ICE-Direktanbindung</strong> München/Berlin</div>
+          <div class="city-stat-row">Preis noch <strong>40–50 % unter München</strong></div>
+          <div class="city-stat-row">Zuzug durch <strong>Technische Uni</strong> &amp; Hochschulen</div>
+        </div>
+      </div>
+
+      <!-- HOF -->
+      <div class="city-card fade-in fade-in-delay-1">
+        <div class="city-icon">🌱</div>
+        <h3 style="margin-bottom:0.5rem;">Hof</h3>
+        <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:0;">Transformationsstadt mit hohem Aufwärtspotenzial</p>
+        <div class="city-stats">
+          <div class="city-stat-row"><strong>Digitalcampus</strong> als Wachstumsanker</div>
+          <div class="city-stat-row">Mieten niedrig — aber <strong>stark steigend</strong></div>
+          <div class="city-stat-row">Bruttorenditen von <strong>5–7 %</strong> erzielbar</div>
+          <div class="city-stat-row">Einstieg möglich <strong>vor dem Preisanstieg</strong></div>
+          <div class="city-stat-row">Niedrige Leerstandsquote durch <strong>Strukturwandel</strong></div>
+          <div class="city-stat-row">Kaufpreise noch <strong>auf attraktivem Niveau</strong></div>
+          <div class="city-stat-row">Vergleichbar zu Erfurt/Chemnitz <strong>vor dem Boom</strong></div>
+        </div>
+      </div>
+
+      <!-- MÜNCHEN -->
+      <div class="city-card fade-in fade-in-delay-2">
+        <div class="city-icon">🏛️</div>
+        <h3 style="margin-bottom:0.5rem;">München</h3>
+        <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:0;">Der sichere Hafen — höchste Stabilität in Deutschland</p>
+        <div class="city-stats">
+          <div class="city-stat-row">Leerstandsquote <strong>unter 0,5 %</strong></div>
+          <div class="city-stat-row">Mietpreise <strong>+35 %</strong> in 5 Jahren</div>
+          <div class="city-stat-row">Wertsteigerung <strong>4–6 % p.a.</strong> historisch</div>
+          <div class="city-stat-row"><strong>DAX-Konzerne</strong> und Tech-Firmen</div>
+          <div class="city-stat-row">Stärkstes <strong>Bevölkerungswachstum</strong> Deutschlands</div>
+          <div class="city-stat-row">Kapitalwertsteigerung als <strong>Haupttreiber</strong></div>
+          <div class="city-stat-row">Institutionelle Investoren <strong>kaufen kontinuierlich</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     RENDITE-RECHNER
+============================================================ -->
+<section id="rechner" class="rechner-section">
+  <div class="container">
+    <div class="section-header fade-in">
+      <div class="section-label">Interaktives Tool</div>
+      <h2>Rendite-Rechner: Berechnen Sie Ihr Objekt</h2>
+      <p>Geben Sie Kaufpreis und Mieterwartung ein — der Rechner zeigt Ihnen sofort die wichtigsten Kennzahlen für Ihre Investitionsentscheidung.</p>
+    </div>
+
+    <div class="rechner-card fade-in">
+      <div class="rechner-inputs">
+        <div class="input-group">
+          <div class="input-label">
+            <span class="input-label-text">Kaufpreis</span>
+            <span class="input-label-value" id="kp-display">€195.000</span>
+          </div>
+          <input type="range" id="kp-slider" min="50000" max="700000" step="5000" value="195000" oninput="updateRechner()" />
+          <div class="range-labels"><span>€50.000</span><span>€700.000</span></div>
+          <input type="number" class="rechner-number-input" id="kp-input" value="195000" min="50000" max="700000" placeholder="Kaufpreis in €" oninput="syncFromInput('kp')" />
+        </div>
+
+        <div class="input-group">
+          <div class="input-label">
+            <span class="input-label-text">Monatliche Kaltmiete</span>
+            <span class="input-label-value" id="miete-display">€850</span>
+          </div>
+          <input type="range" id="miete-slider" min="200" max="4000" step="50" value="850" oninput="updateRechner()" />
+          <div class="range-labels"><span>€200</span><span>€4.000</span></div>
+          <input type="number" class="rechner-number-input" id="miete-input" value="850" min="200" max="4000" placeholder="Kaltmiete in €/Monat" oninput="syncFromInput('miete')" />
+        </div>
+      </div>
+
+      <div class="rechner-outputs">
+        <div class="output-grid">
+          <div class="output-item main">
+            <span class="output-value" id="out-rendite">5,23%</span>
+            <div class="output-label">Bruttorendite</div>
+          </div>
+          <div class="output-item">
+            <span class="output-value" id="out-jahresmiete">€10.200</span>
+            <div class="output-label">Jahresmiete</div>
+          </div>
+          <div class="output-item">
+            <span class="output-value" id="out-rate">€953</span>
+            <div class="output-label">Monatl. Rate (70% FK)</div>
+          </div>
+          <div class="output-item">
+            <span class="output-value" id="out-cashflow">–€103</span>
+            <div class="output-label">Cashflow vor Steuern</div>
+            <div id="cashflow-badge" class="cashflow-indicator cashflow-neg">▼ Leicht negativ</div>
+          </div>
+        </div>
+
+        <div style="margin-top:1.5rem;padding:1.25rem;background:#111;border:1px solid var(--border);border-radius:6px;">
+          <div style="font-size:0.75rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.75rem;">Finanzierungsannahmen (editierbar in Ihrer Detailanalyse)</div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:0.75rem;font-size:0.83rem;color:var(--text-dim);">
+            <div>Eigenkapital: <strong style="color:var(--gold-light);">30 %</strong></div>
+            <div>Fremdkapital: <strong style="color:var(--gold-light);">70 %</strong></div>
+            <div>Zinssatz: <strong style="color:var(--gold-light);">3,5 % p.a.</strong></div>
+            <div>Tilgung: <strong style="color:var(--gold-light);">2,0 % p.a.</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rechner-note">
+        ⚠ Der Rechner dient der Orientierung und ersetzt keine individuelle Finanzberatung. Steuerliche Wirkungen (AfA, Werbungskosten) sind nicht eingerechnet — die tatsächliche Nettorendite ist in der Regel deutlich günstiger.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     EMAIL CAPTURE
+============================================================ -->
+<section id="zugang" class="capture-section">
+  <div class="container">
+    <div class="capture-inner fade-in">
+      <div class="capture-icon">◆</div>
+      <div class="section-label">Exklusiver Zugang</div>
+      <h2>Jetzt exklusiven Zugang zu unseren Off-Market-Objekten erhalten</h2>
+      <p style="font-size:1.05rem;margin-top:1rem;line-height:1.7;">
+        Unsere 115 Wohnungen in Nürnberg, Hof und München werden nicht öffentlich angeboten. Investoren, die sich registrieren, erhalten vor allen anderen Zugang zu Objektunterlagen, Renditekalkulationen und direktem Kontakt zu unserem Team — kostenlos und unverbindlich.
+      </p>
+
+      <div class="trust-badges" style="margin-top:1.5rem;">
+        <div class="trust-badge">Keine Maklergebühren</div>
+        <div class="trust-badge">115 Einheiten verfügbar</div>
+        <div class="trust-badge">Sofortiger Zugang</div>
+        <div class="trust-badge">Unverbindlich</div>
+      </div>
+
+      <div class="capture-form" id="capture-form">
+        <div class="form-content">
+          <h3 style="font-family:Georgia,serif;font-size:1.25rem;margin-bottom:0.5rem;color:var(--gold-light);">Investor-Profil anlegen</h3>
+          <p style="font-size:0.85rem;margin-bottom:1.75rem;color:var(--text-muted);">Alle mit * markierten Felder sind Pflichtfelder. Dauert ca. 30 Sekunden.</p>
+
+          <form onsubmit="handleSubmit(event)">
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="vorname">Vorname *</label>
+                <input class="form-input" type="text" id="vorname" name="vorname" placeholder="Max" required autocomplete="given-name" />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="nachname">Nachname</label>
+                <input class="form-input" type="text" id="nachname" name="nachname" placeholder="Mustermann" autocomplete="family-name" />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group full">
+                <label class="form-label" for="email">E-Mail-Adresse *</label>
+                <input class="form-input" type="email" id="email" name="email" placeholder="max.mustermann@beispiel.de" required autocomplete="email" />
+              </div>
+            </div>
+
+            <div class="form-row" style="margin-bottom:1.5rem;">
+              <div class="form-group full">
+                <label class="form-label" for="budget">Investitionsbudget (optional)</label>
+                <select class="form-select" id="budget" name="budget">
+                  <option value="">Bitte wählen...</option>
+                  <option value="unter-100k">Unter €100.000</option>
+                  <option value="100k-200k">€100.000 – €200.000</option>
+                  <option value="200k-500k">€200.000 – €500.000</option>
+                  <option value="ueber-500k">Über €500.000</option>
+                </select>
+              </div>
+            </div>
+
+            <button type="submit" class="btn-submit">
+              Kostenlos anfordern — Exklusiver Investor-Zugang
+            </button>
+
+            <div class="privacy-note">
+              Ihre Daten werden vertraulich behandelt und nicht an Dritte weitergegeben. Sie können sich jederzeit abmelden. Mit dem Absenden stimmen Sie der Kontaktaufnahme durch MRE Mutumane Real Estate zu. Datenschutzerklärung auf Anfrage erhältlich.
+            </div>
+          </form>
+        </div>
+
+        <div class="thankyou-state">
+          <div class="thankyou-icon">✓</div>
+          <div class="thankyou-title">Willkommen im exklusiven Kreis unserer Investoren</div>
+          <p style="color:var(--text-muted);font-size:0.95rem;max-width:460px;margin:0 auto;">
+            Wir haben Ihre Anfrage erhalten. Unser Team meldet sich innerhalb von 24 Stunden mit dem exklusiven Zugang zu unseren Off-Market-Objekten. Bitte überprüfen Sie auch Ihren Spam-Ordner.
+          </p>
+          <div style="margin-top:2rem;padding:1.25rem;background:#0d0d0d;border:1px solid var(--border-strong);border-radius:6px;max-width:380px;margin-left:auto;margin-right:auto;">
+            <div style="font-size:0.78rem;color:var(--text-muted);margin-bottom:0.5rem;text-transform:uppercase;letter-spacing:0.08em;">Was als nächstes passiert</div>
+            <div style="font-size:0.85rem;color:var(--text-dim);line-height:2;">
+              ▸ Bestätigungs-E-Mail innerhalb von 5 Min.<br>
+              ▸ Detaillierte Objektunterlagen in 24 Std.<br>
+              ▸ Persönliches Gespräch nach Wunsch
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+============================================================ -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand">MRE Mutumane Real Estate</div>
+        <div class="footer-tagline">Off-Market Investment Properties · DACH-Region</div>
+        <div style="margin-top:1rem;display:flex;gap:1.5rem;flex-wrap:wrap;">
+          <span style="font-size:0.78rem;color:var(--text-muted);">Nürnberg</span>
+          <span style="font-size:0.78rem;color:var(--border-strong);">·</span>
+          <span style="font-size:0.78rem;color:var(--text-muted);">Hof</span>
+          <span style="font-size:0.78rem;color:var(--border-strong);">·</span>
+          <span style="font-size:0.78rem;color:var(--text-muted);">München</span>
+        </div>
+      </div>
+      <div style="text-align:right;">
+        <div style="font-size:0.78rem;color:var(--text-muted);">115 Off-Market-Einheiten</div>
+        <div style="margin-top:0.5rem;">
+          <a href="#zugang" style="font-size:0.82rem;color:var(--gold);text-decoration:none;font-weight:600;">Investor-Zugang anfordern ›</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-disclaimer">
+      <strong style="color:#444;">Rechtlicher Hinweis:</strong> Die auf dieser Seite enthaltenen Informationen dienen ausschließlich allgemeinen Informationszwecken und stellen keine Anlageberatung, Steuerberatung oder rechtliche Beratung dar. Renditeangaben basieren auf Beispielrechnungen und historischen Daten; zukünftige Ergebnisse können abweichen. Alle Steuerangaben sind vereinfachte Darstellungen — konsultieren Sie stets einen qualifizierten Steuerberater für Ihre individuelle Situation. Kapitalanlage in Immobilien beinhaltet Risiken, einschließlich des Verlustes des eingesetzten Kapitals. © 2025 MRE Mutumane Real Estate. Alle Rechte vorbehalten.
+    </div>
+  </div>
+</footer>
+
+<!-- ============================================================
+     JAVASCRIPT
+============================================================ -->
+<script>
+  /* ----------------------------------------------------------
+     SCROLL ANIMATION
+  ---------------------------------------------------------- */
+  const fadeEls = document.querySelectorAll('.fade-in');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  fadeEls.forEach(el => observer.observe(el));
+
+  /* ----------------------------------------------------------
+     RENDITE CALCULATOR
+  ---------------------------------------------------------- */
+  function fmt(n, decimals = 0) {
+    return new Intl.NumberFormat('de-DE', {
+      minimumFractionDigits: decimals,
+      maximumFractionDigits: decimals
+    }).format(n);
+  }
+
+  function fmtEur(n) {
+    return '€' + fmt(n);
+  }
+
+  function updateRechner() {
+    const kp = parseFloat(document.getElementById('kp-slider').value) || 0;
+    const miete = parseFloat(document.getElementById('miete-slider').value) || 0;
+
+    // Sync display values
+    document.getElementById('kp-display').textContent = fmtEur(kp);
+    document.getElementById('miete-display').textContent = fmtEur(miete);
+    document.getElementById('kp-input').value = kp;
+    document.getElementById('miete-input').value = miete;
+
+    // Calculations
+    const jahresmiete = miete * 12;
+    const bruttorendite = kp > 0 ? (jahresmiete / kp) * 100 : 0;
+
+    // Financing
+    const fk = kp * 0.7;
+    const zins = 0.035;
+    const tilgung = 0.02;
+    const annuitat = fk * (zins + tilgung) / 12;
+
+    // Cashflow (monthly)
+    const cashflow = miete - annuitat;
+
+    // Update outputs
+    document.getElementById('out-rendite').textContent = fmt(bruttorendite, 2) + '%';
+    document.getElementById('out-jahresmiete').textContent = fmtEur(jahresmiete);
+    document.getElementById('out-rate').textContent = fmtEur(Math.round(annuitat));
+
+    const cfRounded = Math.round(cashflow);
+    const cfSign = cfRounded >= 0 ? '+' : '';
+    document.getElementById('out-cashflow').textContent = cfSign + fmtEur(cfRounded);
+
+    // Cashflow badge
+    const badge = document.getElementById('cashflow-badge');
+    if (cashflow >= 200) {
+      badge.className = 'cashflow-indicator cashflow-pos';
+      badge.textContent = '▲ Positiv';
+    } else if (cashflow >= 0) {
+      badge.className = 'cashflow-indicator cashflow-pos';
+      badge.textContent = '▲ Leicht positiv';
+    } else if (cashflow >= -300) {
+      badge.className = 'cashflow-indicator cashflow-neg';
+      badge.textContent = '▼ Leicht negativ';
+    } else {
+      badge.className = 'cashflow-indicator cashflow-neg';
+      badge.textContent = '▼ Negativ';
+    }
+
+    // Update slider gradient to reflect position
+    updateSliderGradient('kp-slider', 50000, 700000);
+    updateSliderGradient('miete-slider', 200, 4000);
+  }
+
+  function updateSliderGradient(id, min, max) {
+    const slider = document.getElementById(id);
+    const val = parseFloat(slider.value);
+    const pct = ((val - min) / (max - min)) * 100;
+    slider.style.background = `linear-gradient(90deg, var(--gold) ${pct}%, rgba(201,168,76,0.15) ${pct}%)`;
+  }
+
+  function syncFromInput(which) {
+    if (which === 'kp') {
+      const val = Math.max(50000, Math.min(700000, parseFloat(document.getElementById('kp-input').value) || 50000));
+      document.getElementById('kp-slider').value = val;
+    } else {
+      const val = Math.max(200, Math.min(4000, parseFloat(document.getElementById('miete-input').value) || 200));
+      document.getElementById('miete-slider').value = val;
+    }
+    updateRechner();
+  }
+
+  // Initial render
+  updateRechner();
+
+  /* ----------------------------------------------------------
+     EMAIL FORM SUBMIT
+  ---------------------------------------------------------- */
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    const btn = e.target.querySelector('.btn-submit');
+    btn.textContent = 'Wird gesendet…';
+    btn.disabled = true;
+
+    // Simulate async submission
+    setTimeout(() => {
+      const form = document.getElementById('capture-form');
+      form.classList.add('submitted');
+      // Scroll to thank you
+      form.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 900);
+  }
+</script>
+
+</body>
+</html>
