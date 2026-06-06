@@ -1,0 +1,2130 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MRE Mutumane Real Estate – Akquise Cockpit 2025</title>
+<style>
+  /* ===== RESET & BASE ===== */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0a0a0a;
+    --bg2: #111111;
+    --bg3: #1a1a1a;
+    --bg4: #222222;
+    --gold: #c9a84c;
+    --gold-dim: #8a6f2f;
+    --gold-bright: #e4c06a;
+    --white: #f0f0f0;
+    --muted: #888888;
+    --border: #2a2a2a;
+    --green: #2ecc71;
+    --red: #e74c3c;
+    --blue: #3498db;
+    --purple: #9b59b6;
+    --orange: #e67e22;
+    --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    --nav-h: 56px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--white);
+    font-family: var(--font);
+    font-size: 14px;
+    line-height: 1.5;
+    min-height: 100vh;
+  }
+
+  /* ===== SCROLLBAR ===== */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg2); }
+  ::-webkit-scrollbar-thumb { background: var(--gold-dim); border-radius: 3px; }
+
+  /* ===== NAVIGATION ===== */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(10,10,10,0.96);
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(8px);
+    height: var(--nav-h);
+    display: flex;
+    align-items: center;
+    padding: 0 24px;
+    gap: 4px;
+  }
+
+  .nav-brand {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-right: 16px;
+    white-space: nowrap;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2px;
+    flex: 1;
+    overflow-x: auto;
+  }
+
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 6px 10px;
+    border-radius: 4px;
+    white-space: nowrap;
+    transition: all 0.15s;
+    letter-spacing: 0.02em;
+  }
+
+  .nav-links a:hover { color: var(--white); background: var(--bg3); }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+
+  .date-badge {
+    font-size: 11px;
+    color: var(--muted);
+    text-align: right;
+    line-height: 1.3;
+  }
+
+  .date-badge span { display: block; color: var(--gold); font-weight: 600; }
+
+  /* ===== MAIN LAYOUT ===== */
+  main {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 32px 24px 80px;
+  }
+
+  /* ===== SECTIONS ===== */
+  .section {
+    margin-bottom: 48px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-number {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--gold-dim);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .section-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: 0.02em;
+  }
+
+  /* ===== CARDS ===== */
+  .card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+  }
+
+  .card-sm { padding: 14px 16px; }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .grid-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+  .grid-7 { display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px; }
+
+  @media (max-width: 900px) {
+    .grid-4, .grid-5 { grid-template-columns: repeat(2, 1fr); }
+    .grid-7 { grid-template-columns: repeat(4, 1fr); }
+    .grid-3 { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 600px) {
+    .grid-2, .grid-4, .grid-5 { grid-template-columns: 1fr; }
+    .grid-7 { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  /* ===== SECTION 1: JAHRESZIEL ===== */
+  .goal-hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    align-items: start;
+  }
+
+  @media (max-width: 700px) { .goal-hero { grid-template-columns: 1fr; } }
+
+  .goal-number {
+    font-size: 72px;
+    font-weight: 800;
+    color: var(--gold);
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+
+  .goal-label {
+    font-size: 13px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-top: 4px;
+  }
+
+  .goal-subtitle {
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--white);
+    margin-top: 8px;
+  }
+
+  .progress-wrap {
+    margin-top: 20px;
+  }
+
+  .progress-meta {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 6px;
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  .progress-meta strong { color: var(--white); }
+
+  .progress-bar-outer {
+    height: 12px;
+    background: var(--bg4);
+    border-radius: 6px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .progress-bar-inner {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold-dim), var(--gold-bright));
+    border-radius: 6px;
+    transition: width 0.4s ease;
+    min-width: 2px;
+  }
+
+  .progress-pct {
+    text-align: center;
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--gold);
+    margin-top: 8px;
+  }
+
+  .kpi-stat {
+    text-align: center;
+    padding: 16px;
+  }
+
+  .kpi-stat .val {
+    font-size: 36px;
+    font-weight: 800;
+    line-height: 1;
+  }
+
+  .kpi-stat .lbl {
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-top: 4px;
+  }
+
+  .pace-box {
+    background: var(--bg3);
+    border: 1px solid var(--gold-dim);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin-top: 16px;
+    font-size: 15px;
+    color: var(--white);
+    line-height: 1.5;
+  }
+
+  .pace-box .pace-num {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--gold);
+  }
+
+  .input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .input-group label {
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  input[type="number"], input[type="text"] {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--white);
+    font-size: 16px;
+    font-family: var(--font);
+    padding: 10px 12px;
+    width: 100%;
+    transition: border-color 0.15s;
+  }
+
+  input[type="number"]:focus, input[type="text"]:focus {
+    outline: none;
+    border-color: var(--gold-dim);
+  }
+
+  input[type="number"]::-webkit-inner-spin-button { opacity: 0.3; }
+
+  /* ===== SECTION 2: FUNNEL ===== */
+  .funnel-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    align-items: start;
+  }
+
+  @media (max-width: 800px) { .funnel-layout { grid-template-columns: 1fr; } }
+
+  .funnel-vis {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+
+  .funnel-step {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border-radius: 4px;
+    transition: width 0.4s ease;
+    padding: 14px 10px;
+    cursor: default;
+  }
+
+  .funnel-step-1 { width: 100%; background: linear-gradient(135deg, #1a1020, #2a1a35); border: 1px solid #5a2d8a; }
+  .funnel-step-2 { width: 82%; background: linear-gradient(135deg, #102030, #1a3050); border: 1px solid var(--blue); }
+  .funnel-step-3 { width: 64%; background: linear-gradient(135deg, #0d2020, #1a3030); border: 1px solid #1abc9c; }
+  .funnel-step-4 { width: 46%; background: linear-gradient(135deg, #201500, #302200); border: 1px solid var(--gold-dim); }
+  .funnel-step-5 { width: 30%; background: linear-gradient(135deg, #200a0a, #351010); border: 1px solid var(--green); }
+
+  .funnel-arrow {
+    width: 0;
+    height: 0;
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-top: 8px solid var(--border);
+    margin: 2px 0;
+  }
+
+  .funnel-step .f-val {
+    font-size: 22px;
+    font-weight: 800;
+    line-height: 1;
+  }
+
+  .funnel-step .f-lbl {
+    font-size: 11px;
+    text-align: center;
+    opacity: 0.8;
+    margin-top: 2px;
+    letter-spacing: 0.04em;
+  }
+
+  .funnel-step .f-conv {
+    font-size: 10px;
+    opacity: 0.5;
+    margin-top: 1px;
+  }
+
+  .conv-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .conv-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 10px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 12px;
+  }
+
+  .conv-row-label {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.3;
+  }
+
+  .conv-row-label strong { color: var(--white); font-size: 13px; display: block; }
+
+  .conv-input-wrap {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .conv-input-wrap input {
+    width: 60px;
+    text-align: center;
+    padding: 6px 8px;
+    font-size: 14px;
+  }
+
+  .conv-input-wrap span {
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  .funnel-numbers {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .funnel-num-row {
+    display: grid;
+    grid-template-columns: 1fr 80px 80px;
+    gap: 8px;
+    align-items: center;
+    padding: 8px 12px;
+    background: var(--bg3);
+    border-radius: 6px;
+    font-size: 13px;
+  }
+
+  .funnel-num-row .lbl { color: var(--muted); }
+  .funnel-num-row .total { font-weight: 700; color: var(--white); text-align: right; }
+  .funnel-num-row .weekly { font-weight: 700; color: var(--gold); text-align: right; }
+
+  .funnel-num-header {
+    display: grid;
+    grid-template-columns: 1fr 80px 80px;
+    gap: 8px;
+    padding: 0 12px 4px;
+    font-size: 10px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .funnel-num-header .r { text-align: right; }
+
+  /* ===== SECTION 3: TRACKING ===== */
+  .week-nav {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .week-nav button {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    color: var(--white);
+    border-radius: 6px;
+    padding: 6px 12px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: all 0.15s;
+  }
+
+  .week-nav button:hover { border-color: var(--gold-dim); color: var(--gold); }
+
+  .week-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--white);
+  }
+
+  .tracking-table-wrap {
+    overflow-x: auto;
+  }
+
+  .tracking-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 700px;
+  }
+
+  .tracking-table th {
+    padding: 10px 8px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+  }
+
+  .tracking-table th:first-child { text-align: left; }
+
+  .tracking-table td {
+    padding: 6px 4px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+    vertical-align: middle;
+  }
+
+  .tracking-table td:first-child {
+    text-align: left;
+    padding-left: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  .tracking-table .day-header {
+    font-size: 12px;
+    color: var(--white);
+    font-weight: 600;
+  }
+
+  .tracking-table .day-date {
+    font-size: 10px;
+    color: var(--muted);
+    margin-top: 1px;
+  }
+
+  .tracking-table input[type="number"] {
+    width: 60px;
+    padding: 5px 4px;
+    font-size: 13px;
+    text-align: center;
+  }
+
+  .totals-row td {
+    background: var(--bg3);
+    font-weight: 700;
+    font-size: 14px;
+  }
+
+  .totals-row td:first-child { color: var(--gold); }
+
+  .targets-row td {
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  .targets-row td:first-child { color: var(--muted); font-size: 12px; font-weight: 400; }
+
+  .val-good { color: var(--green) !important; }
+  .val-bad { color: var(--red) !important; }
+  .val-great { color: var(--gold) !important; }
+  .val-neutral { color: var(--white); }
+
+  .tracking-legend {
+    display: flex;
+    gap: 16px;
+    margin-top: 10px;
+    font-size: 11px;
+  }
+
+  .legend-item { display: flex; align-items: center; gap: 5px; color: var(--muted); }
+  .legend-dot { width: 8px; height: 8px; border-radius: 50%; }
+
+  /* ===== SECTION 4: PIPELINE ===== */
+  .pipeline-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .pipeline-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 12px;
+    text-align: center;
+    position: relative;
+    transition: border-color 0.15s;
+  }
+
+  .pipeline-card:hover { border-color: var(--gold-dim); }
+
+  .pipeline-card .p-icon {
+    font-size: 18px;
+    margin-bottom: 6px;
+  }
+
+  .pipeline-card .p-val {
+    font-size: 32px;
+    font-weight: 800;
+    line-height: 1;
+    color: var(--white);
+  }
+
+  .pipeline-card .p-lbl {
+    font-size: 10px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-top: 4px;
+    line-height: 1.3;
+  }
+
+  .pipeline-card input[type="number"] {
+    font-size: 28px;
+    font-weight: 800;
+    text-align: center;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--border);
+    border-radius: 0;
+    padding: 0 0 2px;
+    color: var(--white);
+    width: 100%;
+  }
+
+  .pipeline-card input[type="number"]:focus {
+    border-bottom-color: var(--gold);
+    outline: none;
+  }
+
+  .pipeline-card.won { border-color: var(--green); }
+  .pipeline-card.won .p-val { color: var(--green); }
+  .pipeline-card.won input { color: var(--green); }
+
+  .pipeline-card.lost { border-color: var(--red); }
+  .pipeline-card.lost .p-val { color: var(--red); }
+  .pipeline-card.lost input { color: var(--red); }
+
+  .revenue-box {
+    background: var(--bg2);
+    border: 1px solid var(--gold-dim);
+    border-radius: 8px;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+    align-items: center;
+  }
+
+  @media (max-width: 600px) { .revenue-box { grid-template-columns: 1fr; } }
+
+  .revenue-item .r-lbl {
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 4px;
+  }
+
+  .revenue-item .r-val {
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--gold);
+    white-space: nowrap;
+  }
+
+  .revenue-item .r-sub {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  .provision-input-wrap {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .provision-input-wrap span { font-size: 14px; color: var(--muted); }
+
+  .provision-input-wrap input {
+    width: 100px;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--gold);
+    padding: 6px 8px;
+  }
+
+  /* ===== SECTION 5: METRICS ===== */
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  @media (max-width: 700px) { .metrics-grid { grid-template-columns: 1fr; } }
+
+  .metric-row {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: 10px;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+  }
+
+  .metric-row:last-child { border-bottom: none; }
+
+  .metric-row .m-name { color: var(--muted); }
+  .metric-row .m-ist { font-weight: 700; color: var(--white); text-align: right; }
+  .metric-row .m-soll { color: var(--muted); text-align: right; font-size: 11px; }
+
+  .forecast-box {
+    background: var(--bg3);
+    border-radius: 8px;
+    padding: 20px;
+  }
+
+  .forecast-box .f-title {
+    font-size: 13px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+  }
+
+  .forecast-num {
+    font-size: 52px;
+    font-weight: 800;
+    line-height: 1;
+  }
+
+  .forecast-sub {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 6px;
+  }
+
+  .warning-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 16px;
+  }
+
+  .warning-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 10px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+  }
+
+  .warning-item.warn { background: rgba(231, 76, 60, 0.1); border: 1px solid rgba(231, 76, 60, 0.3); color: #ff8a80; }
+  .warning-item.ok { background: rgba(46, 204, 113, 0.08); border: 1px solid rgba(46, 204, 113, 0.2); color: #80e8a0; }
+  .warning-item.info { background: rgba(201, 168, 76, 0.08); border: 1px solid rgba(201, 168, 76, 0.2); color: var(--gold); }
+
+  .warning-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+
+  /* ===== SECTION 6: MOTIVATION ===== */
+  .quote-card {
+    background: linear-gradient(135deg, #0f0d05, #1a1508);
+    border: 1px solid var(--gold-dim);
+    border-radius: 8px;
+    padding: 28px 32px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .quote-card::before {
+    content: '"';
+    position: absolute;
+    top: -10px;
+    left: 20px;
+    font-size: 120px;
+    color: var(--gold-dim);
+    opacity: 0.15;
+    font-family: Georgia, serif;
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .quote-text {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--white);
+    line-height: 1.6;
+    font-style: italic;
+    position: relative;
+    z-index: 1;
+  }
+
+  .quote-author {
+    margin-top: 10px;
+    font-size: 12px;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    position: relative;
+    z-index: 1;
+  }
+
+  .checklist {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .check-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.15s;
+    user-select: none;
+  }
+
+  .check-item:hover { border-color: var(--gold-dim); }
+
+  .check-item.done {
+    opacity: 0.6;
+    border-color: var(--green);
+    background: rgba(46, 204, 113, 0.05);
+  }
+
+  .check-box {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--border);
+    border-radius: 4px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    transition: all 0.15s;
+  }
+
+  .check-item.done .check-box {
+    background: var(--green);
+    border-color: var(--green);
+    color: #fff;
+  }
+
+  .check-item .check-text {
+    font-size: 14px;
+    color: var(--white);
+    flex: 1;
+  }
+
+  .check-item.done .check-text {
+    text-decoration: line-through;
+    color: var(--muted);
+  }
+
+  .check-item .check-num {
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  .checklist-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+
+  .checklist-progress {
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  .checklist-progress span { color: var(--gold); font-weight: 600; }
+
+  /* ===== BUTTONS ===== */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border-radius: 6px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    font-family: var(--font);
+    font-size: 13px;
+    font-weight: 500;
+    transition: all 0.15s;
+    text-decoration: none;
+  }
+
+  .btn-gold {
+    background: var(--gold);
+    color: #000;
+    border-color: var(--gold);
+  }
+
+  .btn-gold:hover { background: var(--gold-bright); }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--muted);
+    border-color: var(--border);
+  }
+
+  .btn-outline:hover { color: var(--white); border-color: var(--white); }
+
+  .btn-danger {
+    background: transparent;
+    color: var(--red);
+    border-color: rgba(231,76,60,0.3);
+  }
+
+  .btn-danger:hover { background: rgba(231,76,60,0.1); }
+
+  /* ===== FOOTER ACTIONS ===== */
+  .footer-actions {
+    display: flex;
+    gap: 12px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  /* ===== TOOLTIPS ===== */
+  .tooltip {
+    position: relative;
+    cursor: help;
+  }
+
+  .tooltip::after {
+    content: attr(data-tip);
+    position: absolute;
+    bottom: calc(100% + 6px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--bg4);
+    border: 1px solid var(--border);
+    color: var(--white);
+    font-size: 11px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.15s;
+    z-index: 10;
+  }
+
+  .tooltip:hover::after { opacity: 1; }
+
+  /* ===== PRINT ===== */
+  @media print {
+    body { background: #fff; color: #000; }
+    nav { display: none; }
+    .card, .pipeline-card, .forecast-box { background: #f9f9f9; border-color: #ccc; }
+    input { border: none; }
+    .btn, .footer-actions { display: none; }
+  }
+
+  /* ===== BADGE ===== */
+  .badge {
+    display: inline-block;
+    padding: 2px 7px;
+    border-radius: 12px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .badge-gold { background: rgba(201,168,76,0.15); color: var(--gold); border: 1px solid var(--gold-dim); }
+  .badge-green { background: rgba(46,204,113,0.12); color: var(--green); border: 1px solid rgba(46,204,113,0.3); }
+  .badge-red { background: rgba(231,76,60,0.12); color: var(--red); border: 1px solid rgba(231,76,60,0.3); }
+
+  /* ===== MODAL (reset confirm) ===== */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    z-index: 200;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .modal-overlay.active { display: flex; }
+
+  .modal {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 28px 32px;
+    max-width: 360px;
+    width: 90%;
+  }
+
+  .modal h3 { font-size: 18px; margin-bottom: 8px; color: var(--white); }
+  .modal p { font-size: 13px; color: var(--muted); margin-bottom: 20px; line-height: 1.5; }
+  .modal-actions { display: flex; gap: 10px; justify-content: flex-end; }
+
+  /* ===== DIVIDER ===== */
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 20px 0;
+  }
+
+  /* ===== SMALL HELPERS ===== */
+  .text-gold { color: var(--gold); }
+  .text-muted { color: var(--muted); }
+  .text-green { color: var(--green); }
+  .text-red { color: var(--red); }
+  .fw-700 { font-weight: 700; }
+  .mt-8 { margin-top: 8px; }
+  .mt-16 { margin-top: 16px; }
+  .flex-between { display: flex; justify-content: space-between; align-items: center; }
+  .flex-gap { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+
+  .city-tags { display: flex; gap: 8px; margin-top: 6px; }
+  .city-tag {
+    font-size: 11px;
+    padding: 3px 8px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    color: var(--muted);
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== NAVIGATION ===== -->
+<nav>
+  <div class="nav-brand">MRE Cockpit</div>
+  <div class="nav-links">
+    <a href="#s1">Jahresziel</a>
+    <a href="#s2">Funnel</a>
+    <a href="#s3">Tracking</a>
+    <a href="#s4">Pipeline</a>
+    <a href="#s5">Metriken</a>
+    <a href="#s6">Fokus</a>
+  </div>
+  <div class="nav-right">
+    <div class="date-badge">
+      <span id="navDate">–</span>
+      <span id="navKW" style="color:var(--muted);font-size:10px;"></span>
+    </div>
+  </div>
+</nav>
+
+<!-- ===== MAIN ===== -->
+<main>
+
+  <!-- ============================
+       SECTION 1: JAHRESZIEL
+       ============================ -->
+  <section class="section" id="s1">
+    <div class="section-header">
+      <span class="section-number">01</span>
+      <span class="section-title">Jahresziel-Übersicht 2025</span>
+    </div>
+
+    <div class="goal-hero">
+      <!-- Left: Big number + progress -->
+      <div class="card">
+        <div class="goal-label">Jahres-Verkaufsziel</div>
+        <div class="goal-number">115</div>
+        <div class="goal-subtitle">Investmentwohnungen</div>
+        <div class="city-tags">
+          <span class="city-tag">Nürnberg</span>
+          <span class="city-tag">Hof</span>
+          <span class="city-tag">München</span>
+        </div>
+
+        <div class="progress-wrap" style="margin-top:24px;">
+          <div class="progress-meta">
+            <span>Verkauft: <strong id="progSold">0</strong></span>
+            <span>Verbleibend: <strong id="progRemain">115</strong></span>
+          </div>
+          <div class="progress-bar-outer">
+            <div class="progress-bar-inner" id="progressBar" style="width:0%"></div>
+          </div>
+          <div class="progress-pct" id="progressPct">0%</div>
+        </div>
+
+        <div style="margin-top:20px;">
+          <div class="input-group">
+            <label>Abschlüsse gesamt (Jahr)</label>
+            <input type="number" id="inp_totalSold" min="0" max="200" placeholder="0">
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Stats + pace -->
+      <div style="display:flex;flex-direction:column;gap:16px;">
+        <div class="card">
+          <div class="grid-2">
+            <div class="kpi-stat">
+              <div class="val text-gold" id="daysElapsed">–</div>
+              <div class="lbl">Tage verstrichen</div>
+            </div>
+            <div class="kpi-stat">
+              <div class="val" id="daysRemaining">–</div>
+              <div class="lbl">Tage verbleibend</div>
+            </div>
+            <div class="kpi-stat">
+              <div class="val" id="weeksRemaining">–</div>
+              <div class="lbl">Wochen verbleibend</div>
+            </div>
+            <div class="kpi-stat">
+              <div class="val" id="yearProgress">–</div>
+              <div class="lbl">Jahresfortschritt</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pace-box">
+          <div style="font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px;">Benötigtes Tempo</div>
+          <div>
+            Sie müssen <span class="pace-num" id="paceWeekly">–</span> Wohnungen/Woche verkaufen, um das Ziel zu erreichen.
+          </div>
+          <div style="margin-top:8px;font-size:12px;color:var(--muted);">
+            Das sind <strong id="paceMonthly" style="color:var(--white);">–</strong> Wohnungen/Monat.
+          </div>
+          <div style="margin-top:10px;" id="paceStatus"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================
+       SECTION 2: FUNNEL
+       ============================ -->
+  <section class="section" id="s2">
+    <div class="section-header">
+      <span class="section-number">02</span>
+      <span class="section-title">Rückwärtsrechnung – Verkaufstrichter</span>
+    </div>
+
+    <div class="funnel-layout">
+      <!-- Left: Visual funnel -->
+      <div>
+        <div class="card" style="padding:24px 16px;">
+          <div class="funnel-vis" id="funnelVis">
+            <div class="funnel-step funnel-step-1" id="fv1">
+              <div class="f-val" id="fv1val">54.340</div>
+              <div class="f-lbl">Kaltakquise-Kontakte / Jahr</div>
+              <div class="f-conv">Start</div>
+            </div>
+            <div class="funnel-arrow"></div>
+            <div class="funnel-step funnel-step-2" id="fv2">
+              <div class="f-val" id="fv2val">2.717</div>
+              <div class="f-lbl">Leads generiert</div>
+              <div class="f-conv" id="fv2conv">5% Conversion</div>
+            </div>
+            <div class="funnel-arrow"></div>
+            <div class="funnel-step funnel-step-3" id="fv3">
+              <div class="f-val" id="fv3val">951</div>
+              <div class="f-lbl">Qualifizierungsgespräche</div>
+              <div class="f-conv" id="fv3conv">35% Conversion</div>
+            </div>
+            <div class="funnel-arrow"></div>
+            <div class="funnel-step funnel-step-4" id="fv4">
+              <div class="f-val" id="fv4val">523</div>
+              <div class="f-lbl">Termine / Präsentationen</div>
+              <div class="f-conv" id="fv4conv">55% Conversion</div>
+            </div>
+            <div class="funnel-arrow"></div>
+            <div class="funnel-step funnel-step-5" id="fv5">
+              <div class="f-val" id="fv5val">115</div>
+              <div class="f-lbl">Abschlüsse</div>
+              <div class="f-conv" id="fv5conv">22% Conversion</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Adjustable conversion rates + numbers table -->
+      <div style="display:flex;flex-direction:column;gap:16px;">
+        <div class="card">
+          <div style="font-size:13px;font-weight:600;color:var(--white);margin-bottom:12px;">Conversion-Raten anpassen</div>
+          <div class="conv-inputs">
+            <div class="conv-row">
+              <div class="conv-row-label">
+                <strong>Kaltakquise &#8594; Lead</strong>
+                Jeder X-te Kontakt wird Lead
+              </div>
+              <div class="conv-input-wrap">
+                <input type="number" id="conv1" value="5" min="0.1" max="100" step="0.1">
+                <span>%</span>
+              </div>
+            </div>
+            <div class="conv-row">
+              <div class="conv-row-label">
+                <strong>Lead &#8594; Gespräch</strong>
+                Qualifizierungsrate
+              </div>
+              <div class="conv-input-wrap">
+                <input type="number" id="conv2" value="35" min="0.1" max="100" step="0.1">
+                <span>%</span>
+              </div>
+            </div>
+            <div class="conv-row">
+              <div class="conv-row-label">
+                <strong>Gespräch &#8594; Termin</strong>
+                Terminierungsrate
+              </div>
+              <div class="conv-input-wrap">
+                <input type="number" id="conv3" value="55" min="0.1" max="100" step="0.1">
+                <span>%</span>
+              </div>
+            </div>
+            <div class="conv-row">
+              <div class="conv-row-label">
+                <strong>Termin &#8594; Abschluss</strong>
+                Closing-Rate
+              </div>
+              <div class="conv-input-wrap">
+                <input type="number" id="conv4" value="22" min="0.1" max="100" step="0.1">
+                <span>%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div style="font-size:13px;font-weight:600;color:var(--white);margin-bottom:12px;">Benötigte Aktivitäten (auf Basis <span id="funnelTargetLabel" style="color:var(--gold);">115</span> Abschlüsse)</div>
+          <div class="funnel-num-header">
+            <span>Aktivität</span>
+            <span class="r">Gesamt</span>
+            <span class="r">Pro Woche</span>
+          </div>
+          <div class="funnel-numbers">
+            <div class="funnel-num-row">
+              <span class="lbl">Kaltakquise-Kontakte</span>
+              <span class="total" id="fn1total">54.340</span>
+              <span class="weekly" id="fn1weekly">1.045</span>
+            </div>
+            <div class="funnel-num-row">
+              <span class="lbl">Leads</span>
+              <span class="total" id="fn2total">2.717</span>
+              <span class="weekly" id="fn2weekly">52</span>
+            </div>
+            <div class="funnel-num-row">
+              <span class="lbl">Gespräche</span>
+              <span class="total" id="fn3total">951</span>
+              <span class="weekly" id="fn3weekly">18</span>
+            </div>
+            <div class="funnel-num-row">
+              <span class="lbl">Termine / Präsentationen</span>
+              <span class="total" id="fn4total">523</span>
+              <span class="weekly" id="fn4weekly">10</span>
+            </div>
+            <div class="funnel-num-row">
+              <span class="lbl">Abschlüsse</span>
+              <span class="total" id="fn5total">115</span>
+              <span class="weekly" id="fn5weekly">2,2</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================
+       SECTION 3: TÄGLICHES TRACKING
+       ============================ -->
+  <section class="section" id="s3">
+    <div class="section-header">
+      <span class="section-number">03</span>
+      <span class="section-title">Tägliches Tracking</span>
+    </div>
+
+    <div class="week-nav">
+      <button onclick="changeWeek(-1)">&#8592; Vorwoche</button>
+      <span class="week-label" id="weekNavLabel">–</span>
+      <button onclick="changeWeek(1)">Nächste Woche &#8594;</button>
+      <button onclick="goToCurrentWeek()" style="margin-left:8px;background:var(--bg4);font-size:11px;padding:4px 10px;color:var(--gold);border-color:var(--gold-dim);">Aktuelle Woche</button>
+    </div>
+
+    <div class="card" style="padding:16px;">
+      <div class="tracking-table-wrap">
+        <table class="tracking-table">
+          <thead>
+            <tr>
+              <th>Aktivität</th>
+              <th class="day-col" data-di="0">
+                <div class="day-header">Mo</div>
+                <div class="day-date" id="th-d0"></div>
+              </th>
+              <th class="day-col" data-di="1">
+                <div class="day-header">Di</div>
+                <div class="day-date" id="th-d1"></div>
+              </th>
+              <th class="day-col" data-di="2">
+                <div class="day-header">Mi</div>
+                <div class="day-date" id="th-d2"></div>
+              </th>
+              <th class="day-col" data-di="3">
+                <div class="day-header">Do</div>
+                <div class="day-date" id="th-d3"></div>
+              </th>
+              <th class="day-col" data-di="4">
+                <div class="day-header">Fr</div>
+                <div class="day-date" id="th-d4"></div>
+              </th>
+              <th class="day-col" data-di="5">
+                <div class="day-header">Sa</div>
+                <div class="day-date" id="th-d5"></div>
+              </th>
+              <th class="day-col" data-di="6">
+                <div class="day-header">So</div>
+                <div class="day-date" id="th-d6"></div>
+              </th>
+              <th>Gesamt</th>
+              <th>Ziel</th>
+            </tr>
+          </thead>
+          <tbody id="trackingBody">
+            <!-- Generated by JS -->
+          </tbody>
+        </table>
+      </div>
+
+      <div class="tracking-legend">
+        <div class="legend-item"><div class="legend-dot" style="background:var(--gold);"></div> Über Ziel</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--green);"></div> Im Ziel</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--red);"></div> Unter Ziel</div>
+      </div>
+    </div>
+
+    <!-- YTD Totals quick view -->
+    <div class="mt-16 card card-sm">
+      <div class="flex-between">
+        <span style="font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;">Jahres-Summen (alle Wochen)</span>
+      </div>
+      <div class="grid-5" style="margin-top:12px;" id="ytdTotals">
+        <!-- Generated by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================
+       SECTION 4: PIPELINE
+       ============================ -->
+  <section class="section" id="s4">
+    <div class="section-header">
+      <span class="section-number">04</span>
+      <span class="section-title">Pipeline-Status</span>
+    </div>
+
+    <div class="pipeline-grid" id="pipelineGrid">
+      <!-- Generated by JS -->
+    </div>
+
+    <div class="revenue-box">
+      <div class="revenue-item">
+        <div class="r-lbl">Provision pro Wohnung</div>
+        <div class="provision-input-wrap">
+          <span>€</span>
+          <input type="number" id="inp_provision" value="3500" min="0" step="100">
+        </div>
+        <div class="r-sub">Durchschnittswert (editierbar)</div>
+      </div>
+      <div class="revenue-item">
+        <div class="r-lbl">Erzielter Umsatz (Jahr)</div>
+        <div class="r-val" id="rev_ist">€ 0</div>
+        <div class="r-sub" id="rev_ist_sub">0 Abschlüsse × Provision</div>
+      </div>
+      <div class="revenue-item">
+        <div class="r-lbl">Fehlender Umsatz zum Ziel</div>
+        <div class="r-val" id="rev_gap" style="color:var(--red);">€ 402.500</div>
+        <div class="r-sub" id="rev_gap_sub">115 fehlende Abschlüsse</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================
+       SECTION 5: METRIKEN
+       ============================ -->
+  <section class="section" id="s5">
+    <div class="section-header">
+      <span class="section-number">05</span>
+      <span class="section-title">Performance-Metriken</span>
+    </div>
+
+    <div class="metrics-grid">
+      <!-- Left: Ist vs Soll -->
+      <div class="card">
+        <div style="font-size:13px;font-weight:600;color:var(--white);margin-bottom:4px;">Aktuelle Conversion-Raten (YTD)</div>
+        <div style="font-size:11px;color:var(--muted);margin-bottom:14px;">Basierend auf Ihren eingetragenen Daten</div>
+        <div id="convMetrics">
+          <div style="color:var(--muted);font-size:12px;padding:20px 0;text-align:center;">Bitte Daten im Tracking eingeben, um Metriken zu sehen.</div>
+        </div>
+      </div>
+
+      <!-- Right: Forecast + warnings -->
+      <div style="display:flex;flex-direction:column;gap:16px;">
+        <div class="card" style="padding:0;overflow:hidden;">
+          <div style="padding:16px 20px 12px;border-bottom:1px solid var(--border);">
+            <div style="font-size:13px;font-weight:600;color:var(--white);">Hochrechnung auf Jahresende</div>
+          </div>
+          <div style="padding:16px 20px;display:grid;grid-template-columns:1fr 1fr;gap:0;">
+            <div style="padding:12px;border-right:1px solid var(--border);">
+              <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px;">Bei aktuellem Tempo</div>
+              <div class="forecast-num" id="forecastNum" style="color:var(--gold);">–</div>
+              <div class="forecast-sub">Wohnungen bis Jahresende</div>
+            </div>
+            <div style="padding:12px;">
+              <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px;">Wochentarget (restl. Zeit)</div>
+              <div class="forecast-num" id="weekTargetNum" style="color:var(--white);font-size:38px;">–</div>
+              <div class="forecast-sub">Abschlüsse/Woche nötig</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div style="font-size:13px;font-weight:600;color:var(--white);margin-bottom:12px;">Status &amp; Warnungen</div>
+          <div class="warning-list" id="warningList">
+            <!-- Generated by JS -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================
+       SECTION 6: FOKUS
+       ============================ -->
+  <section class="section" id="s6">
+    <div class="section-header">
+      <span class="section-number">06</span>
+      <span class="section-title">Tägliche Motivation &amp; Fokus</span>
+    </div>
+
+    <div class="grid-2" style="gap:24px;">
+      <!-- Quote -->
+      <div>
+        <div class="quote-card" id="quoteCard">
+          <div class="quote-text" id="quoteText">–</div>
+          <div class="quote-author" id="quoteAuthor">–</div>
+        </div>
+      </div>
+
+      <!-- Checklist -->
+      <div>
+        <div class="checklist-header">
+          <div style="font-size:14px;font-weight:600;color:var(--white);">Tagesaufgaben</div>
+          <div class="checklist-progress">Erledigt: <span id="checkCount">0</span> / 5</div>
+        </div>
+        <div style="font-size:11px;color:var(--muted);margin-bottom:12px;">Klicken zum Abhaken – Reset täglich um Mitternacht</div>
+        <div class="checklist" id="checklist">
+          <!-- Generated by JS -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ACTIONS ===== -->
+  <div class="footer-actions">
+    <button class="btn btn-outline" onclick="window.print()">Drucken / PDF exportieren</button>
+    <button class="btn btn-danger" onclick="showResetModal()">Alle Daten zurücksetzen</button>
+    <span style="margin-left:auto;font-size:11px;color:var(--muted);">MRE Mutumane Real Estate &mdash; Akquise Cockpit 2025 &mdash; Alle Daten werden lokal in Ihrem Browser gespeichert.</span>
+  </div>
+
+</main>
+
+<!-- ===== RESET MODAL ===== -->
+<div class="modal-overlay" id="resetModal">
+  <div class="modal">
+    <h3>Daten zurücksetzen?</h3>
+    <p>Diese Aktion löscht alle eingetragenen Daten unwiderruflich. Conversion-Raten werden auf Standardwerte zurückgesetzt.</p>
+    <div class="modal-actions">
+      <button class="btn btn-outline" onclick="hideResetModal()">Abbrechen</button>
+      <button class="btn btn-danger" onclick="doReset()">Ja, alles löschen</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== JAVASCRIPT ===== -->
+<script>
+// =============================================
+// CONSTANTS & CONFIG
+// =============================================
+const GOAL = 115;
+const WEEKS_IN_YEAR = 52;
+const STORAGE_KEY = 'mre_cockpit_v2';
+
+const QUOTES = [
+  { text: "Erfolg ist die Summe kleiner Anstrengungen, die täglich wiederholt werden.", author: "Robert Collier" },
+  { text: "Der einzige Weg, großartige Arbeit zu leisten, ist zu lieben, was man tut.", author: "Steve Jobs" },
+  { text: "Jeder Nein, das du hörst, bringt dich einem Ja näher.", author: "Verkäufer-Weisheit" },
+  { text: "Disziplin ist die Brücke zwischen Zielen und Leistung.", author: "Jim Rohn" },
+  { text: "Im Vertrieb entscheidet nicht das Talent, sondern die Anzahl der Versuche.", author: "Jeb Blount" },
+  { text: "Wer aufhört, besser zu werden, hat aufgehört, gut zu sein.", author: "Philip Rosenthal" },
+];
+
+const PIPELINE_STAGES = [
+  { id: 'pipe_newcontacts', label: 'Neue Kontakte (diese Woche)', icon: '📞' },
+  { id: 'pipe_activeleads', label: 'Aktive Leads', icon: '🔥' },
+  { id: 'pipe_qualifying', label: 'In Qualifizierung', icon: '🔍' },
+  { id: 'pipe_appointment', label: 'Termin vereinbart', icon: '📅' },
+  { id: 'pipe_proposal', label: 'Angebot raus', icon: '📄' },
+  { id: 'pipe_won', label: 'Gewonnen (gesamt)', icon: '✅', cls: 'won' },
+  { id: 'pipe_lost', label: 'Verloren', icon: '❌', cls: 'lost' },
+];
+
+const TRACKING_ROWS = [
+  { id: 'kalt',    label: 'Kaltakquise-Kontakte', targetKey: 'fn1weekly' },
+  { id: 'leads',   label: 'Leads generiert',       targetKey: 'fn2weekly' },
+  { id: 'gesp',    label: 'Gespräche geführt',     targetKey: 'fn3weekly' },
+  { id: 'termin',  label: 'Termine vereinbart',    targetKey: 'fn4weekly' },
+  { id: 'abs',     label: 'Abschlüsse',            targetKey: 'fn5weekly' },
+];
+
+const DAYS = ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'];
+
+// =============================================
+// STATE
+// =============================================
+let state = {};
+let currentWeekOffset = 0; // 0 = this week
+
+function defaultState() {
+  return {
+    totalSold: 0,
+    conv: [5, 35, 55, 22],
+    pipeline: {},
+    provision: 3500,
+    tracking: {}, // key: "YYYY-WW", value: { kalt:[0..6], leads:[0..6], gesp:[0..6], termin:[0..6], abs:[0..6] }
+    checklist: { date: '', done: [false,false,false,false,false] },
+  };
+}
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) {
+      state = Object.assign(defaultState(), JSON.parse(raw));
+    } else {
+      state = defaultState();
+    }
+  } catch(e) {
+    state = defaultState();
+  }
+}
+
+function saveState() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  } catch(e) {}
+}
+
+// =============================================
+// DATE HELPERS
+// =============================================
+function getToday() {
+  return new Date();
+}
+
+function getISOWeek(d) {
+  const date = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+  date.setUTCDate(date.getUTCDate() + 4 - (date.getUTCDay() || 7));
+  const yearStart = new Date(Date.UTC(date.getUTCFullYear(), 0, 1));
+  return { week: Math.ceil((((date - yearStart) / 86400000) + 1) / 7), year: date.getUTCFullYear() };
+}
+
+function getWeekKey(weekOffset) {
+  const today = getToday();
+  const d = new Date(today);
+  d.setDate(d.getDate() + weekOffset * 7);
+  const { week, year } = getISOWeek(d);
+  return `${year}-W${String(week).padStart(2,'0')}`;
+}
+
+function getMondayOfWeek(weekOffset) {
+  const today = getToday();
+  const d = new Date(today);
+  const dow = d.getDay() === 0 ? 6 : d.getDay() - 1; // 0=Mon
+  d.setDate(d.getDate() - dow + weekOffset * 7);
+  d.setHours(0,0,0,0);
+  return d;
+}
+
+function formatDate(d) {
+  return `${d.getDate().toString().padStart(2,'0')}.${(d.getMonth()+1).toString().padStart(2,'0')}`;
+}
+
+function formatDateLong(d) {
+  const months = ['Jan','Feb','Mär','Apr','Mai','Jun','Jul','Aug','Sep','Okt','Nov','Dez'];
+  return `${d.getDate()}. ${months[d.getMonth()]} ${d.getFullYear()}`;
+}
+
+function getDayOfYear(d) {
+  const start = new Date(d.getFullYear(), 0, 0);
+  const diff = d - start;
+  return Math.floor(diff / 86400000);
+}
+
+function getDaysInYear(year) {
+  return ((year % 4 === 0 && year % 100 !== 0) || year % 400 === 0) ? 366 : 365;
+}
+
+function formatEur(n) {
+  return '€ ' + Math.round(n).toLocaleString('de-DE');
+}
+
+function formatNum(n) {
+  if (n >= 1000) return n.toLocaleString('de-DE');
+  return n % 1 === 0 ? n.toString() : n.toFixed(1).replace('.',',');
+}
+
+// =============================================
+// FUNNEL CALCULATION
+// =============================================
+function calcFunnel(target, convRates) {
+  // convRates = [c1, c2, c3, c4] in percent
+  const c1 = convRates[0] / 100;
+  const c2 = convRates[1] / 100;
+  const c3 = convRates[2] / 100;
+  const c4 = convRates[3] / 100;
+
+  const deals   = target;
+  const termine = deals / c4;
+  const gesp    = termine / c3;
+  const leads   = gesp / c2;
+  const kalt    = leads / c1;
+
+  return {
+    kalt:   Math.ceil(kalt),
+    leads:  Math.ceil(leads),
+    gesp:   Math.ceil(gesp),
+    termine:Math.ceil(termine),
+    deals:  Math.ceil(deals),
+    kalt_w:   Math.ceil(kalt / WEEKS_IN_YEAR),
+    leads_w:  Math.ceil(leads / WEEKS_IN_YEAR),
+    gesp_w:   Math.ceil(gesp / WEEKS_IN_YEAR),
+    termine_w:Math.ceil(termine / WEEKS_IN_YEAR),
+    deals_w:  (deals / WEEKS_IN_YEAR),
+  };
+}
+
+// =============================================
+// TRACKING DATA HELPERS
+// =============================================
+function getWeekData(weekKey) {
+  if (!state.tracking[weekKey]) {
+    state.tracking[weekKey] = {
+      kalt:   [0,0,0,0,0,0,0],
+      leads:  [0,0,0,0,0,0,0],
+      gesp:   [0,0,0,0,0,0,0],
+      termin: [0,0,0,0,0,0,0],
+      abs:    [0,0,0,0,0,0,0],
+    };
+  }
+  return state.tracking[weekKey];
+}
+
+function getYTDTotals() {
+  const totals = { kalt:0, leads:0, gesp:0, termin:0, abs:0 };
+  for (const wk in state.tracking) {
+    const d = state.tracking[wk];
+    for (const k in totals) {
+      totals[k] += (d[k] || []).reduce((a,b)=>a+(+b||0), 0);
+    }
+  }
+  return totals;
+}
+
+// =============================================
+// RENDER HELPERS
+// =============================================
+function colorClass(val, target) {
+  if (val === 0 && target === 0) return 'val-neutral';
+  if (val >= target * 1.1) return 'val-great';
+  if (val >= target * 0.9) return 'val-good';
+  return 'val-bad';
+}
+
+// =============================================
+// SECTION 1: JAHRESZIEL
+// =============================================
+function renderGoal() {
+  const today = getToday();
+  const dayOfYear = getDayOfYear(today);
+  const totalDays = getDaysInYear(today.getFullYear());
+  const daysLeft = totalDays - dayOfYear;
+  const weeksLeft = Math.max(0, daysLeft / 7);
+  const sold = +state.totalSold || 0;
+  const remaining = Math.max(0, GOAL - sold);
+  const pct = Math.min(100, (sold / GOAL) * 100);
+
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('progressPct').textContent = pct.toFixed(1).replace('.',',') + '%';
+  document.getElementById('progSold').textContent = sold;
+  document.getElementById('progRemain').textContent = remaining;
+
+  document.getElementById('daysElapsed').textContent = dayOfYear;
+  document.getElementById('daysRemaining').textContent = daysLeft;
+  document.getElementById('weeksRemaining').textContent = Math.ceil(weeksLeft);
+  document.getElementById('yearProgress').textContent = (dayOfYear / totalDays * 100).toFixed(0) + '%';
+
+  // Pace
+  const paceW = weeksLeft > 0 ? (remaining / weeksLeft) : 0;
+  const paceM = paceW * 4.33;
+  document.getElementById('paceWeekly').textContent = paceW.toFixed(1).replace('.',',');
+  document.getElementById('paceMonthly').textContent = paceM.toFixed(1).replace('.',',');
+
+  const paceEl = document.getElementById('paceStatus');
+  const baseW = GOAL / WEEKS_IN_YEAR;
+  if (sold >= GOAL) {
+    paceEl.innerHTML = '<span class="badge badge-green">Ziel erreicht!</span>';
+  } else if (paceW > baseW * 1.5) {
+    paceEl.innerHTML = '<span class="badge badge-red">Hohes Tempo erforderlich – intensivieren!</span>';
+  } else if (paceW > baseW * 1.1) {
+    paceEl.innerHTML = '<span class="badge badge-gold">Leicht über Plan – durchhalten!</span>';
+  } else {
+    paceEl.innerHTML = '<span class="badge badge-green">Im Planbereich</span>';
+  }
+}
+
+// =============================================
+// SECTION 2: FUNNEL
+// =============================================
+function renderFunnel() {
+  const conv = state.conv || [5, 35, 55, 22];
+  // Remaining deals needed (use goal, not remaining, for the funnel display)
+  const f = calcFunnel(GOAL, conv);
+
+  // Update funnel vis
+  document.getElementById('fv1val').textContent  = formatNum(f.kalt);
+  document.getElementById('fv2val').textContent  = formatNum(f.leads);
+  document.getElementById('fv3val').textContent  = formatNum(f.gesp);
+  document.getElementById('fv4val').textContent  = formatNum(f.termine);
+  document.getElementById('fv5val').textContent  = formatNum(f.deals);
+
+  document.getElementById('fv2conv').textContent = conv[0] + '% Conversion';
+  document.getElementById('fv3conv').textContent = conv[1] + '% Conversion';
+  document.getElementById('fv4conv').textContent = conv[2] + '% Conversion';
+  document.getElementById('fv5conv').textContent = conv[3] + '% Conversion';
+
+  // Update numbers table
+  document.getElementById('fn1total').textContent  = formatNum(f.kalt);
+  document.getElementById('fn2total').textContent  = formatNum(f.leads);
+  document.getElementById('fn3total').textContent  = formatNum(f.gesp);
+  document.getElementById('fn4total').textContent  = formatNum(f.termine);
+  document.getElementById('fn5total').textContent  = formatNum(f.deals);
+
+  document.getElementById('fn1weekly').textContent = formatNum(f.kalt_w);
+  document.getElementById('fn2weekly').textContent = formatNum(f.leads_w);
+  document.getElementById('fn3weekly').textContent = formatNum(f.gesp_w);
+  document.getElementById('fn4weekly').textContent = formatNum(f.termine_w);
+  document.getElementById('fn5weekly').textContent = f.deals_w.toFixed(1).replace('.',',');
+}
+
+// =============================================
+// SECTION 3: TRACKING TABLE
+// =============================================
+function buildTrackingTable() {
+  const weekKey = getWeekKey(currentWeekOffset);
+  const monday = getMondayOfWeek(currentWeekOffset);
+
+  // Update header dates
+  for (let di = 0; di < 7; di++) {
+    const d = new Date(monday);
+    d.setDate(d.getDate() + di);
+    document.getElementById(`th-d${di}`).textContent = formatDate(d);
+  }
+
+  // Update week nav label
+  const { week, year } = getISOWeek(monday);
+  document.getElementById('weekNavLabel').textContent = `KW ${week} / ${year} (${formatDate(monday)} – ${formatDate(new Date(monday.getTime() + 6*86400000))})`;
+
+  const weekData = getWeekData(weekKey);
+  const conv = state.conv || [5, 35, 55, 22];
+  const f = calcFunnel(GOAL, conv);
+  const targets = [f.kalt_w, f.leads_w, f.gesp_w, f.termine_w, f.deals_w];
+
+  const tbody = document.getElementById('trackingBody');
+  tbody.innerHTML = '';
+
+  TRACKING_ROWS.forEach((row, ri) => {
+    const rowKey = row.id;
+    const vals = weekData[rowKey] || [0,0,0,0,0,0,0];
+    const total = vals.reduce((a,b) => a + (+b||0), 0);
+    const target = targets[ri];
+
+    const tr = document.createElement('tr');
+    let cells = `<td>${row.label}</td>`;
+
+    for (let di = 0; di < 7; di++) {
+      cells += `<td><input type="number" min="0" step="1" value="${vals[di]||''}"
+        placeholder="–"
+        oninput="updateTracking('${weekKey}','${rowKey}',${di},this.value)"
+        style="width:56px;padding:5px 2px;font-size:13px;text-align:center;"></td>`;
+    }
+
+    const cc = colorClass(total, target);
+    const targetDisplay = ri === 4 ? target.toFixed(1).replace('.',',') : Math.ceil(target);
+    cells += `<td class="${cc}" style="font-weight:700;font-size:15px;">${total}</td>`;
+    cells += `<td style="color:var(--muted);font-size:12px;">${targetDisplay}</td>`;
+
+    tr.innerHTML = cells;
+    tbody.appendChild(tr);
+  });
+
+  renderYTD();
+}
+
+function updateTracking(weekKey, rowKey, di, val) {
+  const wd = getWeekData(weekKey);
+  if (!wd[rowKey]) wd[rowKey] = [0,0,0,0,0,0,0];
+  wd[rowKey][di] = +val || 0;
+  state.tracking[weekKey] = wd;
+  saveState();
+  renderYTD();
+  renderMetrics();
+}
+
+function renderYTD() {
+  const ytd = getYTDTotals();
+  const conv = state.conv || [5, 35, 55, 22];
+  const today = getToday();
+  const dayOfYear = getDayOfYear(today);
+  const weeksPassed = dayOfYear / 7;
+  const f = calcFunnel(GOAL, conv);
+
+  const keys = ['kalt', 'leads', 'gesp', 'termin', 'abs'];
+  const labels = ['Kaltakquise', 'Leads', 'Gespräche', 'Termine', 'Abschlüsse'];
+  const targets = [f.kalt_w * weeksPassed, f.leads_w * weeksPassed, f.gesp_w * weeksPassed, f.termine_w * weeksPassed, f.deals_w * weeksPassed];
+
+  const container = document.getElementById('ytdTotals');
+  container.innerHTML = keys.map((k, i) => {
+    const val = ytd[k];
+    const t = targets[i];
+    const cc = colorClass(val, t);
+    return `<div class="card card-sm" style="text-align:center;padding:10px;">
+      <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px;">${labels[i]}</div>
+      <div style="font-size:22px;font-weight:800;" class="${cc}">${formatNum(val)}</div>
+      <div style="font-size:10px;color:var(--muted);margin-top:2px;">Ziel: ${Math.round(t)}</div>
+    </div>`;
+  }).join('');
+}
+
+function changeWeek(delta) {
+  currentWeekOffset += delta;
+  buildTrackingTable();
+}
+
+function goToCurrentWeek() {
+  currentWeekOffset = 0;
+  buildTrackingTable();
+}
+
+// =============================================
+// SECTION 4: PIPELINE
+// =============================================
+function buildPipeline() {
+  const container = document.getElementById('pipelineGrid');
+  container.innerHTML = PIPELINE_STAGES.map(s => {
+    const val = state.pipeline[s.id] || 0;
+    const clsCls = s.cls ? ` ${s.cls}` : '';
+    return `<div class="pipeline-card${clsCls}">
+      <div class="p-icon">${s.icon}</div>
+      <input type="number" min="0" step="1" value="${val}"
+        oninput="updatePipeline('${s.id}', this.value)">
+      <div class="p-lbl">${s.label}</div>
+    </div>`;
+  }).join('');
+}
+
+function updatePipeline(id, val) {
+  state.pipeline[id] = +val || 0;
+  if (id === 'pipe_won') {
+    // Sync with total sold
+    // (optional: auto-fill? Let's just update revenue)
+  }
+  saveState();
+  renderRevenue();
+  renderMetrics();
+}
+
+function renderRevenue() {
+  const sold = +state.totalSold || 0;
+  const provision = +state.provision || 3500;
+  const ist = sold * provision;
+  const gap = Math.max(0, (GOAL - sold)) * provision;
+
+  document.getElementById('rev_ist').textContent = formatEur(ist);
+  document.getElementById('rev_ist_sub').textContent = `${sold} Abschlüsse × ${formatEur(provision)}`;
+  document.getElementById('rev_gap').textContent = formatEur(gap);
+  document.getElementById('rev_gap_sub').textContent = `${Math.max(0, GOAL - sold)} fehlende Abschlüsse`;
+  document.getElementById('rev_gap').style.color = gap === 0 ? 'var(--green)' : 'var(--red)';
+}
+
+// =============================================
+// SECTION 5: METRIKEN
+// =============================================
+function renderMetrics() {
+  const ytd = getYTDTotals();
+  const today = getToday();
+  const dayOfYear = getDayOfYear(today);
+  const weeksElapsed = Math.max(1, dayOfYear / 7);
+  const weeksRemaining = Math.max(0, (getDaysInYear(today.getFullYear()) - dayOfYear) / 7);
+  const sold = +state.totalSold || 0;
+
+  // Conversion rates actual
+  const actualConvs = [
+    ytd.kalt > 0 ? (ytd.leads / ytd.kalt * 100) : null,
+    ytd.leads > 0 ? (ytd.gesp / ytd.leads * 100) : null,
+    ytd.gesp > 0 ? (ytd.termin / ytd.gesp * 100) : null,
+    ytd.termin > 0 ? (ytd.abs / ytd.termin * 100) : null,
+  ];
+
+  const convNames = ['Kaltakquise → Lead', 'Lead → Gespräch', 'Gespräch → Termin', 'Termin → Abschluss'];
+  const convTargets = state.conv || [5, 35, 55, 22];
+
+  const convContainer = document.getElementById('convMetrics');
+  if (ytd.kalt === 0 && ytd.abs === 0) {
+    convContainer.innerHTML = `<div style="color:var(--muted);font-size:12px;padding:20px 0;text-align:center;">Bitte Daten im Tracking eingeben, um Metriken zu sehen.</div>`;
+  } else {
+    convContainer.innerHTML = convNames.map((n, i) => {
+      const ist = actualConvs[i];
+      const soll = convTargets[i];
+      const istStr = ist !== null ? ist.toFixed(1).replace('.',',') + '%' : 'k.A.';
+      const cc = ist !== null ? (ist >= soll * 0.9 ? 'val-good' : 'val-bad') : 'val-neutral';
+      return `<div class="metric-row">
+        <span class="m-name">${n}</span>
+        <span class="m-ist ${cc}">${istStr}</span>
+        <span class="m-soll">Ziel: ${soll}%</span>
+      </div>`;
+    }).join('') + `<div class="divider"></div>` +
+    `<div class="metric-row">
+      <span class="m-name">Kaltakquise/Woche</span>
+      <span class="m-ist ${colorClass(ytd.kalt/weeksElapsed, calcFunnel(GOAL, convTargets).kalt_w)}">${(ytd.kalt/weeksElapsed).toFixed(0)}</span>
+      <span class="m-soll">Ziel: ${calcFunnel(GOAL, convTargets).kalt_w}/Wo.</span>
+    </div>
+    <div class="metric-row">
+      <span class="m-name">Abschlüsse/Woche</span>
+      <span class="m-ist ${colorClass(sold/weeksElapsed, calcFunnel(GOAL, convTargets).deals_w)}">${(sold/weeksElapsed).toFixed(2).replace('.',',')}</span>
+      <span class="m-soll">Ziel: ${calcFunnel(GOAL, convTargets).deals_w.toFixed(1).replace('.',',')} /Wo.</span>
+    </div>`;
+  }
+
+  // Forecast
+  const weeklyPace = weeksElapsed > 0 ? sold / weeksElapsed : 0;
+  const totalWeeks = getDaysInYear(today.getFullYear()) / 7;
+  const projected = weeklyPace * totalWeeks;
+  const forecastEl = document.getElementById('forecastNum');
+  forecastEl.textContent = Math.round(projected);
+  forecastEl.style.color = projected >= GOAL ? 'var(--green)' : (projected >= GOAL * 0.8 ? 'var(--gold)' : 'var(--red)');
+
+  // Weekly target from now
+  const weekTarget = weeksRemaining > 0 ? (GOAL - sold) / weeksRemaining : 0;
+  document.getElementById('weekTargetNum').textContent = weekTarget.toFixed(1).replace('.',',');
+
+  // Warnings
+  const warnings = [];
+  if (sold >= GOAL) {
+    warnings.push({ type: 'ok', icon: '✓', text: 'Jahresziel erreicht! Ausgezeichnet!' });
+  } else {
+    const deficit = GOAL - projected;
+    if (deficit > 20) {
+      warnings.push({ type: 'warn', icon: '⚠', text: `Hochrechnung zeigt nur ${Math.round(projected)} Abschlüsse – ${Math.round(deficit)} unter dem Ziel. Aktivitäten deutlich erhöhen!` });
+    } else if (deficit > 5) {
+      warnings.push({ type: 'info', icon: '◆', text: `Sie liegen leicht unter Plan (Prognose: ${Math.round(projected)}). Tempo etwas erhöhen.` });
+    } else {
+      warnings.push({ type: 'ok', icon: '✓', text: `Prognose: ${Math.round(projected)} Abschlüsse – auf gutem Kurs zum Ziel.` });
+    }
+  }
+
+  const f = calcFunnel(GOAL, convTargets);
+  if (ytd.kalt > 0 && ytd.kalt / weeksElapsed < f.kalt_w * 0.7) {
+    warnings.push({ type: 'warn', icon: '⚠', text: `Kaltakquise deutlich zu niedrig: ${(ytd.kalt/weeksElapsed).toFixed(0)}/Wo. (Ziel: ${f.kalt_w}/Wo.)` });
+  }
+  if (actualConvs[3] !== null && actualConvs[3] < convTargets[3] * 0.7) {
+    warnings.push({ type: 'warn', icon: '⚠', text: `Closing-Rate (${actualConvs[3].toFixed(1)}%) liegt unter Ziel (${convTargets[3]}%). Präsentation & Einwandbehandlung verbessern.` });
+  }
+  if (warnings.length === 0) {
+    warnings.push({ type: 'info', icon: '◆', text: 'Geben Sie Daten im Tracking ein, um Warnungen zu sehen.' });
+  }
+
+  document.getElementById('warningList').innerHTML = warnings.map(w =>
+    `<div class="warning-item ${w.type}"><span class="warning-icon">${w.icon}</span><span>${w.text}</span></div>`
+  ).join('');
+}
+
+// =============================================
+// SECTION 6: MOTIVATION
+// =============================================
+function renderQuote() {
+  const today = getToday();
+  const idx = (today.getDate() + today.getMonth() * 31) % QUOTES.length;
+  const q = QUOTES[idx];
+  document.getElementById('quoteText').textContent = q.text;
+  document.getElementById('quoteAuthor').textContent = '— ' + q.author;
+}
+
+const TASKS = [
+  { label: '200 LinkedIn-Profile besucht', detail: 'Prospecting & Visibility' },
+  { label: '20 DMs gesendet', detail: 'Direkte Ansprache' },
+  { label: '5 Follow-ups gemacht', detail: 'Beziehungspflege' },
+  { label: '1 Contentstück erstellt / gepostet', detail: 'Brand Building' },
+  { label: 'Cockpit aktualisiert', detail: 'Tracking & Reflexion' },
+];
+
+function buildChecklist() {
+  const today = getToday().toISOString().split('T')[0];
+  if (state.checklist.date !== today) {
+    state.checklist = { date: today, done: [false,false,false,false,false] };
+    saveState();
+  }
+
+  const container = document.getElementById('checklist');
+  container.innerHTML = TASKS.map((t, i) => {
+    const done = state.checklist.done[i];
+    return `<div class="check-item ${done ? 'done' : ''}" onclick="toggleCheck(${i})">
+      <div class="check-box">${done ? '✓' : ''}</div>
+      <div>
+        <div class="check-text">${t.label}</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:1px;">${t.detail}</div>
+      </div>
+    </div>`;
+  }).join('');
+
+  const count = state.checklist.done.filter(Boolean).length;
+  document.getElementById('checkCount').textContent = count;
+}
+
+function toggleCheck(i) {
+  state.checklist.done[i] = !state.checklist.done[i];
+  saveState();
+  buildChecklist();
+}
+
+// =============================================
+// NAV DATE
+// =============================================
+function renderNavDate() {
+  const today = getToday();
+  const months = ['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'];
+  const days = ['So','Mo','Di','Mi','Do','Fr','Sa'];
+  const { week } = getISOWeek(today);
+  document.getElementById('navDate').textContent = `${days[today.getDay()]}, ${today.getDate()}. ${months[today.getMonth()]} ${today.getFullYear()}`;
+  document.getElementById('navKW').textContent = `KW ${week}`;
+}
+
+// =============================================
+// INPUT BINDINGS
+// =============================================
+function bindInputs() {
+  const inp = document.getElementById('inp_totalSold');
+  inp.value = state.totalSold || '';
+  inp.addEventListener('input', e => {
+    state.totalSold = +e.target.value || 0;
+    saveState();
+    renderGoal();
+    renderRevenue();
+    renderMetrics();
+  });
+
+  const prov = document.getElementById('inp_provision');
+  prov.value = state.provision || 3500;
+  prov.addEventListener('input', e => {
+    state.provision = +e.target.value || 3500;
+    saveState();
+    renderRevenue();
+  });
+
+  ['conv1','conv2','conv3','conv4'].forEach((id, i) => {
+    const el = document.getElementById(id);
+    el.value = state.conv[i];
+    el.addEventListener('input', e => {
+      state.conv[i] = +e.target.value || 1;
+      saveState();
+      renderFunnel();
+      buildTrackingTable();
+      renderMetrics();
+    });
+  });
+}
+
+// =============================================
+// RESET
+// =============================================
+function showResetModal() {
+  document.getElementById('resetModal').classList.add('active');
+}
+
+function hideResetModal() {
+  document.getElementById('resetModal').classList.remove('active');
+}
+
+function doReset() {
+  state = defaultState();
+  localStorage.removeItem(STORAGE_KEY);
+  hideResetModal();
+  init();
+}
+
+// =============================================
+// INIT
+// =============================================
+function init() {
+  loadState();
+  renderNavDate();
+  renderGoal();
+  renderFunnel();
+  buildTrackingTable();
+  buildPipeline();
+  renderRevenue();
+  renderMetrics();
+  renderQuote();
+  buildChecklist();
+  bindInputs();
+}
+
+document.addEventListener('DOMContentLoaded', init);
+
+// Close modal on overlay click
+document.getElementById('resetModal').addEventListener('click', function(e) {
+  if (e.target === this) hideResetModal();
+});
+</script>
+</body>
+</html>
