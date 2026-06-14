@@ -6,7 +6,7 @@ Audio-Routing (einmalig einrichten):
   Windows: VB-CABLE von vb-audio.com/Cable herunterladen & installieren.
            Telefon-App (3CX, sipgate, etc.) → Audio-Ausgabe auf "VB-Cable Input" stellen.
            Dieses Gerät erscheint dann als "CABLE Output" unter den Input-Geräten.
-           LOOPBACK_DEVICE="CABLE Output" setzen (oder "VB-Cable").
+           LOOPBACK_DEVICE="CABLE Output" setzen (oder Namens-Substring reicht).
   Mac:     BlackHole von existingcode.com/blackhole herunterladen & installieren.
            Audio-MIDI-Setup öffnen → Multi-Output-Device mit BlackHole + Lautsprecher.
            System-Audio-Ausgabe auf das Multi-Output-Device stellen.
@@ -16,8 +16,8 @@ Audio-Routing (einmalig einrichten):
 Umgebungsvariablen:
   ANTHROPIC_API_KEY   – Pflicht; Anthropic API Key
   MIC_DEVICE          – Gerätename (Substring) oder Index des Mikros (leer = System-Default)
-  LOOPBACK_DEVICE     – Gerätename (Substring) oder Index des Loopback-Geräts
-  WHISPER_MODEL       – Whisper-Modell (Standard: large-v3 | schneller: medium oder small)
+  LOOPBACK_DEVICE     – Gerätename (Substring) oder Index des Loopback-Geräts (Pflicht!)
+  WHISPER_MODEL       – Whisper-Modell (Standard: large-v3 | schneller auf CPU: medium)
 """
 
 import os
@@ -42,7 +42,7 @@ except ImportError:
     _missing.append("sounddevice       →  pip install sounddevice")
 
 try:
-    from faster_whisper import WhisperModel as _WhisperModel
+    import faster_whisper as _fw  # noqa: F401  (nur Existenz prüfen)
 except ImportError:
     _missing.append("faster-whisper    →  pip install faster-whisper")
 
@@ -73,7 +73,7 @@ import anthropic as _anthropic_lib
 SAMPLE_RATE       = 16_000
 CHUNK_SECONDS     = 3
 CHUNK_SAMPLES     = SAMPLE_RATE * CHUNK_SECONDS
-SILENCE_RMS       = 0.006          # Chunks leiser als dies werden übersprungen
+SILENCE_RMS       = 0.006
 
 WHISPER_MODEL_ID  = os.environ.get("WHISPER_MODEL", "large-v3")
 WHISPER_LANG      = "de"
@@ -86,7 +86,7 @@ ANTHROPIC_KEY     = os.environ.get("ANTHROPIC_API_KEY", "")
 MIC_DEVICE_CFG       = os.environ.get("MIC_DEVICE", "")
 LOOPBACK_DEVICE_CFG  = os.environ.get("LOOPBACK_DEVICE", "")
 
-HISTORY_TURNS     = 14    # Letzte N Zeilen werden an Anthropic gesendet
+HISTORY_TURNS     = 14
 
 # ─── KI System-Prompt ─────────────────────────────────────────────────────────
 
@@ -101,14 +101,19 @@ SYSTEM_PROMPT = (
 
 COACH_SCHEMA = """\
 {
-  "phase":          "Eisbrecher|Bedarf|Pitch|Einwand|Abschluss",
-  "kundensignal":   "was Kunde gerade will/blockt",
-  "einwand":        "zu teuer|kein EK|keine Zeit|Bedenkzeit|Partner fragen|kein Vertrauen|null",
-  "jetzt_sagen":    "die EINE beste Antwort, max 2 Sätze, wortwörtlich",
-  "alternativen":   ["Variante 2", "Variante 3"],
+  "phase":             "Eisbrecher|Bedarf|Pitch|Einwand|Abschluss",
+  "kundensignal":      "was Kunde gerade will/blockt",
+  "einwand":           "zu teuer|kein EK|keine Zeit|Bedenkzeit|Partner fragen|kein Vertrauen|null",
+  "jetzt_sagen":       "die EINE beste Antwort, max 2 Sätze, wortwörtlich",
+  "alternativen":      ["Variante 2", "Variante 3"],
   "naechster_schritt": "konkrete nächste Frage/Aktion",
-  "warnung":        "falls Caller gerade Fehler macht, sonst null"
+  "warnung":           "falls Caller gerade Fehler macht, sonst null"
 }"""
+
+# ─── Sentinel für "Gerät konfiguriert aber nicht gefunden" ──────────────────
+# FIX Bug 1+2+3: Unterschied zwischen "" (kein Config) und "name not found"
+
+_DEVICE_NOT_FOUND = object()
 
 # ─── ConnectionManager ────────────────────────────────────────────────────────
 
@@ -156,7 +161,7 @@ class AudioBuffer:
                     try:
                         self._q.put_nowait((self.label, chunk))
                     except queue.Full:
-                        pass  # Überlast: älteste Chunks verwerfen
+                        pass
 
 # ─── Globaler Zustand ─────────────────────────────────────────────────────────
 
@@ -166,8 +171,11 @@ broadcast_queue: Optional[asyncio.Queue] = None
 
 whisper_model: Optional[WhisperModel] = None
 anth_client: Optional[_anthropic_lib.AsyncAnthropic] = None
-transcript_ctx: List[dict] = []   # [{speaker, text}, ...]
-audio_streams: list = []           # sd.InputStream — müssen am Leben bleiben
+transcript_ctx: List[dict] = []
+audio_streams: list = []
+
+# FIX Bug 2: Coaching läuft als Background-Task; dieses Flag verhindert parallele API-Calls
+_coaching_active: bool = False
 
 # ─── Whisper (sync, läuft im ThreadPool-Executor) ────────────────────────────
 
@@ -206,7 +214,6 @@ async def _get_coaching(history: List[dict]) -> Optional[dict]:
             messages=[{"role": "user", "content": user_msg}],
         )
         raw = resp.content[0].text.strip()
-        # JSON aus Antwort extrahieren (robust gegen Markdown-Code-Blöcke)
         match = re.search(r"\{[\s\S]*\}", raw)
         if match:
             return json.loads(match.group())
@@ -217,16 +224,34 @@ async def _get_coaching(history: List[dict]) -> Optional[dict]:
         print(f"⚠️  Anthropic-Fehler: {e}")
     return None
 
+# FIX Bug 2: Coaching als eigenständiger Background-Task – blockiert Transkription nicht mehr
+
+async def _coaching_task(history: List[dict]) -> None:
+    """Runs Anthropic coaching in background so processing_task stays unblocked."""
+    global _coaching_active
+    if _coaching_active:
+        return  # vorheriger Coaching-Call läuft noch – überspringen
+    _coaching_active = True
+    try:
+        await broadcast_queue.put({"type": "coach_loading", "loading": True})
+        coaching = await _get_coaching(history)
+        await broadcast_queue.put({"type": "coach_loading", "loading": False})
+        if coaching:
+            await broadcast_queue.put({"type": "coach", "data": coaching})
+    except Exception as e:
+        print(f"⚠️  Coaching-Task-Fehler: {e}")
+    finally:
+        _coaching_active = False
+
 # ─── Verarbeitungs-Task (asyncio) ─────────────────────────────────────────────
 
-async def processing_task():
+async def processing_task() -> None:
     """Reads (speaker, chunk) from audio_queue, transcribes, triggers coaching."""
     global transcript_ctx
     loop = asyncio.get_running_loop()
     print("▶  Verarbeitungs-Task gestartet")
 
     while True:
-        # Blockierend lesen (max 1s) – im Executor damit Event Loop frei bleibt
         try:
             result = await loop.run_in_executor(
                 None, lambda: audio_queue.get(block=True, timeout=1.0)
@@ -239,7 +264,6 @@ async def processing_task():
 
         speaker, chunk = result
 
-        # Transkription im Executor (CPU-intensiv)
         try:
             text = await asyncio.wait_for(
                 loop.run_in_executor(None, _transcribe, chunk),
@@ -254,35 +278,38 @@ async def processing_task():
 
         print(f"[{speaker}] {text}")
 
-        # Transcript ans Frontend
         await broadcast_queue.put(
             {"type": "transcript", "speaker": speaker, "text": text}
         )
 
-        # Kontext aktualisieren
         transcript_ctx.append({"speaker": speaker, "text": text})
         if len(transcript_ctx) > HISTORY_TURNS * 2:
             transcript_ctx = transcript_ctx[-HISTORY_TURNS:]
 
-        # Coaching bei Kunden-Aussagen
+        # FIX Bug 2: create_task statt await → Transkription läuft weiter während KI antwortet
         if speaker == "Kunde":
-            await broadcast_queue.put({"type": "coach_loading", "loading": True})
-            coaching = await _get_coaching(transcript_ctx)
-            await broadcast_queue.put({"type": "coach_loading", "loading": False})
-            if coaching:
-                await broadcast_queue.put({"type": "coach", "data": coaching})
+            asyncio.create_task(
+                _coaching_task(list(transcript_ctx)),  # Snapshot des aktuellen Kontexts
+                name="coaching",
+            )
 
 # ─── Broadcast-Task (asyncio) ─────────────────────────────────────────────────
 
-async def broadcast_task():
+async def broadcast_task() -> None:
     while True:
         msg = await broadcast_queue.get()
         await manager.broadcast(msg)
 
-# ─── Hilfsfunktion: Audio-Gerät finden ───────────────────────────────────────
+# ─── Audio-Gerät finden ───────────────────────────────────────────────────────
 
-def _find_device_index(cfg: str) -> Optional[int]:
-    """Returns device index by name-substring or int string. None = system default."""
+def _find_device_index(cfg: str):
+    """
+    Returns:
+      None             – cfg is empty → use system default (intentional)
+      int              – device index found by name-substring or explicit index
+      _DEVICE_NOT_FOUND – cfg given but no matching input device found
+    """
+    # FIX Bug 1+3: leerer String ≠ "nicht gefunden"
     if not cfg:
         return None
     if cfg.lstrip("-").isdigit():
@@ -291,11 +318,35 @@ def _find_device_index(cfg: str) -> Optional[int]:
     for i, dev in enumerate(sd.query_devices()):
         if cfg_lower in dev["name"].lower() and dev["max_input_channels"] > 0:
             return i
-    return None
+    return _DEVICE_NOT_FOUND
 
-def _start_stream(device_cfg: str, speaker_label: str) -> bool:
-    """Opens a sounddevice InputStream. Returns True on success."""
-    idx = _find_device_index(device_cfg)
+
+def _start_stream(device_cfg: str, speaker_label: str, require_explicit: bool = False) -> bool:
+    """
+    Opens a sounddevice InputStream.
+
+    require_explicit=True: empty device_cfg is treated as failure (used for Loopback/Kunde).
+    require_explicit=False: empty device_cfg falls back to system default (used for Mic/Verkäufer).
+    """
+    # FIX Bug 1: Loopback braucht explizites Gerät; leer = nicht konfiguriert
+    if not device_cfg:
+        if require_explicit:
+            print(
+                f"⚠️  LOOPBACK_DEVICE nicht gesetzt – kein '{speaker_label}'-Stream gestartet.\n"
+                "    Setze LOOPBACK_DEVICE=<Gerätename>  (python server.py --devices für Liste)"
+            )
+            return False
+        idx = None  # MIC: system default ist OK
+    else:
+        idx = _find_device_index(device_cfg)
+        # FIX Bug 2+3: nicht gefunden → klar melden, NICHT auf Default fallen
+        if idx is _DEVICE_NOT_FOUND:
+            print(
+                f"❌  Gerät '{device_cfg}' nicht unter Input-Geräten gefunden.\n"
+                f"    Verfügbare Geräte:  python server.py --devices"
+            )
+            return False
+
     buf = AudioBuffer(speaker_label, audio_queue)
     try:
         stream = sd.InputStream(
@@ -303,12 +354,15 @@ def _start_stream(device_cfg: str, speaker_label: str) -> bool:
             channels=1,
             samplerate=SAMPLE_RATE,
             dtype="float32",
-            blocksize=int(SAMPLE_RATE * 0.1),  # 100ms-Blöcke
+            blocksize=int(SAMPLE_RATE * 0.1),
             callback=buf.feed,
         )
         stream.start()
         audio_streams.append(stream)
-        dev_info = sd.query_devices(idx) if idx is not None else sd.query_devices(kind="input")
+        dev_info = (
+            sd.query_devices(idx) if idx is not None
+            else sd.query_devices(kind="input")
+        )
         print(f"🎙  {speaker_label:10s} → [{idx if idx is not None else 'default'}] {dev_info['name']}")
         return True
     except Exception as e:
@@ -324,7 +378,6 @@ async def lifespan(app: "FastAPI"):
     broadcast_queue = asyncio.Queue()
     loop = asyncio.get_running_loop()
 
-    # API-Key prüfen
     if not ANTHROPIC_KEY:
         print("⚠️  ANTHROPIC_API_KEY nicht gesetzt – KI-Coaching deaktiviert!")
         print("    Setzen mit: export ANTHROPIC_API_KEY=sk-ant-...")
@@ -332,8 +385,7 @@ async def lifespan(app: "FastAPI"):
         anth_client = _anthropic_lib.AsyncAnthropic(api_key=ANTHROPIC_KEY)
         print(f"✅  Anthropic: {ANTHROPIC_MODEL}")
 
-    # Whisper-Modell laden (kann beim ersten Start mehrere Minuten dauern → Download)
-    print(f"⏳  Lade Whisper '{WHISPER_MODEL_ID}' … (erster Start = Download ~1-3 GB)")
+    print(f"⏳  Lade Whisper '{WHISPER_MODEL_ID}' … (erster Start = Download ~1–3 GB)")
     try:
         whisper_model = await loop.run_in_executor(
             None,
@@ -342,29 +394,25 @@ async def lifespan(app: "FastAPI"):
         print(f"✅  Whisper '{WHISPER_MODEL_ID}' geladen")
     except Exception as e:
         print(f"❌  Whisper-Ladefehler: {e}")
-        print("    Tipp: pip install faster-whisper  oder  WHISPER_MODEL=medium setzen")
+        print("    Tipp: WHISPER_MODEL=medium setzen für schnelleren Download/Start")
 
-    # Audio-Streams starten
     print("\n── Audio-Geräte ─────────────────────────────────────────────────────")
-    mic_ok = _start_stream(MIC_DEVICE_CFG, "Verkäufer")
+    # Mikro: leer = System-Default ist OK
+    mic_ok = _start_stream(MIC_DEVICE_CFG, "Verkäufer", require_explicit=False)
     if not mic_ok:
-        print("   Tipp: MIC_DEVICE=<Gerätename> setzen  (python server.py --devices für Liste)")
+        print("   Tipp: MIC_DEVICE=<Gerätename> setzen")
 
-    loop_ok = _start_stream(LOOPBACK_DEVICE_CFG, "Kunde")
+    # Loopback: muss explizit konfiguriert sein
+    loop_ok = _start_stream(LOOPBACK_DEVICE_CFG, "Kunde", require_explicit=True)
     if not loop_ok:
         print(
-            "   Kein Loopback-Gerät gefunden.\n"
             "   → VB-Cable (Windows) / BlackHole (Mac) installieren\n"
             "   → LOOPBACK_DEVICE=\"CABLE Output\" oder \"BlackHole\" setzen\n"
-            "   → Aktuell läuft nur 1 Mikrofon-Stream (Single-Stream-Modus)"
+            "   → Single-Stream-Modus: nur Mikrofon aktiv, kein KI-Coaching"
         )
 
-    if not mic_ok and not loop_ok:
-        print("\n❌  Kein Audio-Gerät geöffnet. Starte trotzdem (WebSocket aktiv).")
-
-    # Background-Tasks
-    proc = asyncio.create_task(processing_task(), name="processing")
-    bcast = asyncio.create_task(broadcast_task(), name="broadcast")
+    proc  = asyncio.create_task(processing_task(), name="processing")
+    bcast = asyncio.create_task(broadcast_task(),   name="broadcast")
 
     print("\n" + "─" * 68)
     print("  🚀  MRE Sales Copilot PRO  →  http://localhost:8000")
@@ -374,9 +422,11 @@ async def lifespan(app: "FastAPI"):
 
     yield  # Server läuft hier
 
-    # Cleanup
+    # FIX Bug 6: Tasks canceln UND auf sauberes Ende warten
     proc.cancel()
     bcast.cancel()
+    await asyncio.gather(proc, bcast, return_exceptions=True)
+
     for s in audio_streams:
         try:
             s.stop()
@@ -394,11 +444,12 @@ async def get_index():
     p = Path(__file__).parent / "index.html"
     if p.exists():
         return FileResponse(p, media_type="text/html")
-    return HTMLResponse("<h1>index.html nicht gefunden – bitte im selben Ordner ablegen.</h1>", 404)
+    return HTMLResponse(
+        "<h1>index.html nicht gefunden – bitte im selben Ordner ablegen.</h1>", 404
+    )
 
 @app.get("/api/devices")
 async def list_devices():
-    """Listet alle verfügbaren Audio-Input-Geräte."""
     devs = []
     for i, d in enumerate(sd.query_devices()):
         if d["max_input_channels"] > 0:
@@ -423,7 +474,6 @@ async def get_status():
 @app.websocket("/ws")
 async def ws_endpoint(ws: WebSocket):
     await manager.connect(ws)
-    # Sofort Status senden
     await ws.send_text(json.dumps({
         "type": "status",
         "whisper": whisper_model is not None,
@@ -436,7 +486,6 @@ async def ws_endpoint(ws: WebSocket):
             if data == "reset":
                 transcript_ctx.clear()
                 await ws.send_text(json.dumps({"type": "reset_ok"}))
-            # ping → pong (verhindert Timeout)
             elif data == "ping":
                 await ws.send_text(json.dumps({"type": "pong"}))
     except WebSocketDisconnect:
@@ -449,16 +498,20 @@ async def ws_endpoint(ws: WebSocket):
 if __name__ == "__main__":
     import argparse
     parser = argparse.ArgumentParser(description="MRE Sales Copilot PRO")
-    parser.add_argument("--devices", action="store_true", help="Zeigt verfügbare Audio-Geräte und beendet")
+    parser.add_argument("--devices", action="store_true",
+                        help="Zeigt verfügbare Audio-Geräte und beendet")
     parser.add_argument("--port", type=int, default=8000)
     parser.add_argument("--host", default="127.0.0.1")
     args = parser.parse_args()
 
     if args.devices:
         print("\n── Verfügbare Audio-Input-Geräte ────────────────────────────────────")
+        # FIX Bug 4: sd.default.device kann int oder Tupel sein
+        default_dev = sd.default.device
+        default_in = default_dev[0] if isinstance(default_dev, (list, tuple)) else default_dev
         for i, d in enumerate(sd.query_devices()):
             if d["max_input_channels"] > 0:
-                marker = " ◀ DEFAULT" if i == sd.default.device[0] else ""
+                marker = " ◀ DEFAULT" if i == default_in else ""
                 print(f"  [{i:2d}] {d['name']}{marker}")
         print()
         sys.exit(0)
