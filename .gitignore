@@ -38,3 +38,9 @@ yarn-error.log*
 
 # Local Netlify folder
 .netlify
+
+# Python (MRE Sales Copilot)
+__pycache__/
+*.py[cod]
+.venv/
+venv/
