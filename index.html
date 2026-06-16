@@ -285,6 +285,7 @@ button.action:hover{color:var(--text);border-color:#3a5a90;}
     <div id="whisper-pill" class="pill wait">Whisper …</div>
     <div id="ai-pill"      class="pill wait">KI …</div>
     <div id="ws-pill"      class="pill err">● Getrennt</div>
+    <button class="action" onclick="exportTranscript()">Export</button>
     <button class="action" onclick="resetSession()">Reset</button>
     <button class="action" onclick="window.open('/api/devices')">Geräte</button>
   </div>
@@ -350,6 +351,8 @@ const WS_URL = 'ws://' + location.host + '/ws';
 let ws = null;
 let reconnTimer = null;
 let pingTimer = null;
+let transcriptLines = [];   // [{ts, speaker, text}]
+let sessionStart = new Date();
 
 // ── WebSocket ──────────────────────────────────────────────────────────────
 function connect() {
@@ -396,15 +399,41 @@ function handleStatus(msg) {
 
 // ── Transcript ────────────────────────────────────────────────────────────
 function addTranscript(msg) {
+  const ts = new Date();
+  transcriptLines.push({ ts, speaker: msg.speaker, text: msg.text });
+
   const list = document.getElementById('tx-list');
   const isV = msg.speaker === 'Verkäufer';
   const div = document.createElement('div');
   div.className = 'tx-line ' + (isV ? 'v' : 'k');
+  const timeStr = ts.toTimeString().slice(0,8);
   div.innerHTML =
-    '<div class="sp ' + (isV ? 'v' : 'k') + '">' + esc(msg.speaker) + '</div>' +
+    '<div class="sp ' + (isV ? 'v' : 'k') + '">' +
+      esc(msg.speaker) +
+      '<span style="font-weight:400;opacity:.5;margin-left:8px;font-size:.6rem;">' + timeStr + '</span>' +
+    '</div>' +
     '<div>' + esc(msg.text) + '</div>';
   list.appendChild(div);
   list.scrollTop = list.scrollHeight;
+}
+
+function exportTranscript() {
+  if (!transcriptLines.length) { alert('Noch kein Transkript vorhanden.'); return; }
+  const dateStr = sessionStart.toLocaleDateString('de-DE');
+  const timeStr = sessionStart.toLocaleTimeString('de-DE');
+  let txt = `MRE Sales Copilot PRO – Gesprächsprotokoll\n`;
+  txt    += `Datum: ${dateStr}  ${timeStr}\n`;
+  txt    += '='.repeat(52) + '\n\n';
+  for (const l of transcriptLines) {
+    const t = l.ts.toTimeString().slice(0,8);
+    txt += `[${t}] ${l.speaker}:\n${l.text}\n\n`;
+  }
+  const blob = new Blob([txt], { type: 'text/plain;charset=utf-8' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'transkript_' + sessionStart.toISOString().slice(0,16).replace('T','_') + '.txt';
+  a.click();
+  URL.revokeObjectURL(a.href);
 }
 
 // ── Coach ─────────────────────────────────────────────────────────────────
@@ -465,6 +494,8 @@ function resetSession() {
   clearUI();
 }
 function clearUI() {
+  transcriptLines = [];
+  sessionStart = new Date();
   document.getElementById('tx-list').innerHTML = '';
   const mt = document.getElementById('main-text');
   mt.className = 'empty';

@@ -511,6 +511,17 @@ async def list_devices():
             })
     return JSONResponse(devs)
 
+@app.get("/api/transcript")
+async def get_transcript(fmt: str = "json"):
+    """Returns current transcript context. ?fmt=txt for plain text download."""
+    if fmt == "txt":
+        from fastapi.responses import PlainTextResponse
+        lines = "\n\n".join(f"[{e['speaker']}]\n{e['text']}" for e in transcript_ctx)
+        return PlainTextResponse(lines, headers={
+            "Content-Disposition": "attachment; filename=transkript.txt"
+        })
+    return JSONResponse(transcript_ctx)
+
 @app.get("/api/status")
 async def get_status():
     return {
