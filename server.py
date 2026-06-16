@@ -88,6 +88,31 @@ LOOPBACK_DEVICE_CFG  = os.environ.get("LOOPBACK_DEVICE", "")
 
 HISTORY_TURNS     = 14
 
+# Demo-Modus: --demo Flag oder DEMO=1 Env-Variable (kein Audio nötig)
+DEMO_MODE = "--demo" in sys.argv or os.environ.get("DEMO", "") == "1"
+
+# Realistisches Kapitalanlage-Gespräch (alle Phasen + Einwände)
+DEMO_SCRIPT = [
+    ("Verkäufer", "Guten Tag, Herr Müller! Hier spricht Max Weber von MRE Immobilien. Sie hatten sich bei uns zu Kapitalanlage-Immobilien informiert – passt das kurz?"),
+    ("Kunde",     "Ja, ich hatte da was angefragt. Bin aber ehrlich gesagt noch skeptisch ob das wirklich was für mich ist."),
+    ("Verkäufer", "Das ist ein gesunder Ansatz. Was hat Sie ursprünglich dazu bewogen, sich zu informieren?"),
+    ("Kunde",     "Ich höre überall dass man mit Immobilien Vermögen aufbauen kann – aber ich habe keine Ahnung davon und auch kaum Zeit mich da reinzufuchsen."),
+    ("Verkäufer", "Genau für solche Situationen sind wir da. Sie müssen kein Experte sein, das übernehmen wir komplett für Sie."),
+    ("Kunde",     "Klingt gut. Aber wie viel Eigenkapital brauche ich denn? Ich habe nicht unendlich viel Geld zur Verfügung."),
+    ("Verkäufer", "Das hängt vom Objekt ab – in der Regel 10 bis 20 Prozent. Was steht bei Ihnen ungefähr bereit?"),
+    ("Kunde",     "Vielleicht 15.000 Euro. Aber ich bin nicht sicher ob das reicht – das klingt eigentlich zu wenig für eine Immobilie."),
+    ("Verkäufer", "15.000 Euro sind ein solider Einstieg für bestimmte Objektklassen. Dazu gibt es noch Förderprogramme."),
+    ("Kunde",     "Und was kostet mich das monatlich? Ich habe laufende Kosten und kann mir keine zusätzliche finanzielle Belastung leisten."),
+    ("Verkäufer", "Die Mieteinnahmen decken die Finanzierungsrate – im Idealfall zahlt der Mieter Ihre Immobilie komplett ab."),
+    ("Kunde",     "Das klingt interessant. Aber ich muss das ehrlich gesagt erst mit meiner Frau besprechen bevor ich irgendetwas unterschreibe."),
+    ("Verkäufer", "Natürlich, das ist absolut verständlich."),
+    ("Kunde",     "Ja, ich melde mich dann in ein paar Wochen. Im Moment ist es bei der Arbeit sehr stressig – ich habe gerade wirklich keine Zeit dafür."),
+    ("Verkäufer", "Selbstverständlich, kein Druck. Ich schicke Ihnen erst mal Unterlagen rüber."),
+    ("Kunde",     "Noch eine Frage – wie sicher ist das wirklich? Ich habe gelesen dass Immobilienpreise auch fallen können. Was passiert wenn ich dann auf den Kosten sitzen bleibe?"),
+    ("Verkäufer", "Das ist eine sehr berechtigte Frage."),
+    ("Kunde",     "Ich weiß nicht. Das klingt alles gut aber ich habe generell kein Vertrauen in Finanzprodukte, nach allem was man in den Medien hört."),
+]
+
 # ─── KI System-Prompt ─────────────────────────────────────────────────────────
 
 SYSTEM_PROMPT = (
@@ -300,6 +325,27 @@ async def broadcast_task() -> None:
         msg = await broadcast_queue.get()
         await manager.broadcast(msg)
 
+# ─── Demo-Task (kein Audio/Whisper nötig) ────────────────────────────────────
+
+async def demo_task() -> None:
+    """Feeds DEMO_SCRIPT directly into the pipeline. No audio hardware required."""
+    global transcript_ctx
+    print("🎭  Demo-Modus: simuliere Kapitalanlage-Gespräch …")
+    await asyncio.sleep(2.5)  # kurze Pause damit Browser verbinden kann
+
+    for speaker, text in DEMO_SCRIPT:
+        await broadcast_queue.put({"type": "transcript", "speaker": speaker, "text": text})
+        transcript_ctx.append({"speaker": speaker, "text": text})
+        print(f"[DEMO][{speaker}] {text[:70]}")
+
+        if speaker == "Kunde":
+            asyncio.create_task(_coaching_task(list(transcript_ctx)), name="coaching")
+            await asyncio.sleep(9)   # Zeit zum Lesen + KI-Call
+        else:
+            await asyncio.sleep(3.5)
+
+    print("🎭  Demo-Gespräch beendet – Browser offen lassen, Coaching sichtbar")
+
 # ─── Audio-Gerät finden ───────────────────────────────────────────────────────
 
 def _find_device_index(cfg: str):
@@ -396,23 +442,27 @@ async def lifespan(app: "FastAPI"):
         print(f"❌  Whisper-Ladefehler: {e}")
         print("    Tipp: WHISPER_MODEL=medium setzen für schnelleren Download/Start")
 
-    print("\n── Audio-Geräte ─────────────────────────────────────────────────────")
-    # Mikro: leer = System-Default ist OK
-    mic_ok = _start_stream(MIC_DEVICE_CFG, "Verkäufer", require_explicit=False)
-    if not mic_ok:
-        print("   Tipp: MIC_DEVICE=<Gerätename> setzen")
+    if DEMO_MODE:
+        print("\n🎭  Demo-Modus aktiv – kein Audio-Gerät nötig")
+        print("   Gespräch startet automatisch nach Browser-Verbindung\n")
+    else:
+        print("\n── Audio-Geräte ─────────────────────────────────────────────────────")
+        mic_ok = _start_stream(MIC_DEVICE_CFG, "Verkäufer", require_explicit=False)
+        if not mic_ok:
+            print("   Tipp: MIC_DEVICE=<Gerätename> setzen")
 
-    # Loopback: muss explizit konfiguriert sein
-    loop_ok = _start_stream(LOOPBACK_DEVICE_CFG, "Kunde", require_explicit=True)
-    if not loop_ok:
-        print(
-            "   → VB-Cable (Windows) / BlackHole (Mac) installieren\n"
-            "   → LOOPBACK_DEVICE=\"CABLE Output\" oder \"BlackHole\" setzen\n"
-            "   → Single-Stream-Modus: nur Mikrofon aktiv, kein KI-Coaching"
-        )
+        loop_ok = _start_stream(LOOPBACK_DEVICE_CFG, "Kunde", require_explicit=True)
+        if not loop_ok:
+            print(
+                "   → VB-Cable (Windows) / BlackHole (Mac) installieren\n"
+                "   → LOOPBACK_DEVICE=\"CABLE Output\" oder \"BlackHole\" setzen\n"
+                "   → Single-Stream-Modus: nur Mikrofon aktiv, kein KI-Coaching"
+            )
 
     proc  = asyncio.create_task(processing_task(), name="processing")
     bcast = asyncio.create_task(broadcast_task(),   name="broadcast")
+    if DEMO_MODE:
+        asyncio.create_task(demo_task(), name="demo")
 
     print("\n" + "─" * 68)
     print("  🚀  MRE Sales Copilot PRO  →  http://localhost:8000")
@@ -500,6 +550,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="MRE Sales Copilot PRO")
     parser.add_argument("--devices", action="store_true",
                         help="Zeigt verfügbare Audio-Geräte und beendet")
+    parser.add_argument("--demo", action="store_true",
+                        help="Demo-Modus: simuliertes Gespräch, kein Audio nötig")
     parser.add_argument("--port", type=int, default=8000)
     parser.add_argument("--host", default="127.0.0.1")
     args = parser.parse_args()
