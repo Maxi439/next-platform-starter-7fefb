@@ -58,6 +58,21 @@ export async function POST(request) {
                 { status: 404 }
             );
         }
-        return NextResponse.json({ error: 'Fehler beim Abrufen des Transkripts.' }, { status: 500 });
+        if (msg.includes('unavailable') || msg.includes('no longer available')) {
+            return NextResponse.json(
+                { error: 'Dieses Video ist nicht verfügbar oder privat.' },
+                { status: 404 }
+            );
+        }
+        if (msg.includes('Too Many') || msg.includes('captcha')) {
+            return NextResponse.json(
+                { error: 'YouTube hat die Anfrage blockiert (Rate Limit). Bitte später erneut versuchen.' },
+                { status: 429 }
+            );
+        }
+        return NextResponse.json(
+            { error: 'Transkript konnte nicht abgerufen werden. Stelle sicher, dass das Video öffentlich ist und Untertitel hat.' },
+            { status: 500 }
+        );
     }
 }
