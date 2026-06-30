@@ -6,14 +6,18 @@ export function CopyButton({ text, label = 'Kopieren', className = '' }) {
 
     async function handleCopy() {
         try {
-            await navigator.clipboard.writeText(text);
+            const timeout = new Promise((_, r) => setTimeout(() => r(new Error('timeout')), 2000));
+            await Promise.race([navigator.clipboard.writeText(text), timeout]);
         } catch {
-            const ta = document.createElement('textarea');
-            ta.value = text;
-            document.body.appendChild(ta);
-            ta.select();
-            document.execCommand('copy');
-            document.body.removeChild(ta);
+            try {
+                const ta = document.createElement('textarea');
+                ta.value = text;
+                ta.style.cssText = 'position:fixed;opacity:0;pointer-events:none';
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                document.body.removeChild(ta);
+            } catch {}
         }
         setCopied(true);
         setTimeout(() => setCopied(false), 2000);

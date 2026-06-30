@@ -16,7 +16,7 @@ export default function Week1Page() {
                 </p>
                 <div className="mt-5 grid gap-3 sm:grid-cols-3">
                     {[
-                        { label: 'Gesamt-Tasks', value: '60' },
+                        { label: 'Gesamt-Tasks', value: '59' },
                         { label: 'Reels produziert', value: '3–4' },
                         { label: 'System live', value: 'Tag 2' },
                     ].map((s) => (
