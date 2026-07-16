@@ -4,14 +4,16 @@ import { Header } from '../components/header';
 
 export const metadata = {
     title: {
-        template: '%s | Netlify',
-        default: 'Netlify Starter'
-    }
+        template: '%s | Kapitalwert Immobilien',
+        default: 'Kapitalwert Immobilien – Persönliche Beratung für Immobilien-Kapitalanlagen'
+    },
+    description:
+        'Persönliche Beratung für Immobilien-Kapitalanlagen: individuelle Analyse, geprüfte Objekte und Begleitung bis zur Übergabe – transparent und ohne Verkaufsdruck.'
 };
 
 export default function RootLayout({ children }) {
     return (
-        <html lang="en">
+        <html lang="de">
             <head>
                 <link rel="icon" href="/favicon.svg" sizes="any" />
             </head>
