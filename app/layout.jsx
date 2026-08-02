@@ -4,14 +4,16 @@ import { Header } from '../components/header';
 
 export const metadata = {
     title: {
-        template: '%s | Netlify',
-        default: 'Netlify Starter'
-    }
+        template: '%s | AUFWIND',
+        default: 'AUFWIND – Mindset-Coaching für neue Energie'
+    },
+    description:
+        'AUFWIND begleitet dich in 12 Wochen vom Energietief zu einem stabilen, tragfähigen Mindset – Schritt für Schritt, ohne Druck.'
 };
 
 export default function RootLayout({ children }) {
     return (
-        <html lang="en">
+        <html lang="de">
             <head>
                 <link rel="icon" href="/favicon.svg" sizes="any" />
             </head>
