@@ -1,0 +1,75 @@
+[
+  {
+    "client": "Sahana Siva",
+    "daily": [
+      {
+        "type": "affirmations",
+        "description": "10 positive und 10 negative Affirmationen zur Dankbarkeit",
+        "positiveCount": 10,
+        "negativeCount": 10,
+        "focus": "Dankbarkeit"
+      },
+      {
+        "type": "reading",
+        "description": "Pflichtlektüre",
+        "title": "Das Powerprinzip",
+        "author": "Tony Robbins"
+      },
+      {
+        "type": "task",
+        "description": "Simuliertes Kundengespräch zur Einwandbehandlung"
+      }
+    ],
+    "weekly": []
+  },
+  {
+    "client": "Kevin Rappick",
+    "daily": [
+      {
+        "type": "tracking",
+        "description": "Tracking der Selbstwert-Metriken"
+      },
+      {
+        "type": "deadline",
+        "description": "Strikte Deadlines zur sofortigen Übernahme von Verantwortung"
+      },
+      {
+        "type": "task",
+        "description": "Jede Form von Aufschieberitis direkt unterbinden"
+      }
+    ],
+    "weekly": []
+  },
+  {
+    "client": "Michele Schonger",
+    "daily": [],
+    "weekly": [
+      {
+        "type": "case-study",
+        "description": "Fungiert als Case Study seines eigenen Erfolges"
+      },
+      {
+        "type": "task",
+        "description": "Erkenntnisse aus NLP und Vaterschaft an andere vermitteln"
+      },
+      {
+        "type": "task",
+        "description": "Verkaufsroutinen skalieren"
+      }
+    ]
+  },
+  {
+    "client": "Tobias Bischler",
+    "daily": [
+      {
+        "type": "comparison",
+        "description": "Vergleich alter Vertriebswege mit den High-Performance-Ansätzen der MRE"
+      },
+      {
+        "type": "training",
+        "description": "Training spezifischer Verhandlungsstrategien in Kontaktsituationen"
+      }
+    ],
+    "weekly": []
+  }
+]
